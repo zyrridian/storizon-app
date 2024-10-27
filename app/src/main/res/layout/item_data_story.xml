@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@color/card"
+    app:cardCornerRadius="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/image_view"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:contentDescription="@string/foto_dari_story"
+            android:scaleType="centerCrop"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/title_text_view"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/black"
+            android:minLines="1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_view"
+            app:layout_constraintTop_toTopOf="@id/image_view"
+            tools:text="Muhammad Ibnu" />
+
+        <TextView
+            android:id="@+id/description_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:textColor="@color/black"
+            android:maxLines="3"
+            android:minLines="3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/image_view"
+            app:layout_constraintTop_toBottomOf="@id/title_text_view"
+            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus, nibh non dictum tempus, ligula nisl sagittis ipsum, eget efficitur mauris nisi at sapien. Nunc sit amet scelerisque diam, ut auctor mi. Ut consequat risus et cursus ultricies. Fusce volutpat purus sit amet metus auctor tristique. Praesent congue diam eget quam ullamcorper, sed convallis tortor semper. Nam fermentum imperdiet nunc et iaculis. Donec leo risus, molestie at gravida eu, ultricies sit amet odio. Nullam faucibus ornare mattis. Aliquam vitae posuere ex. Mauris lobortis orci diam, et eleifend nulla elementum in. Morbi vel aliquam est. Praesent mattis eros vel purus dapibus, et sodales sem rutrum. Nam tincidunt suscipit velit, sed tincidunt dui iaculis nec. Etiam quis posuere mauris. Nunc posuere augue eget neque pretium, id rhoncus urna consectetur." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>
