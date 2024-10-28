@@ -37,21 +37,21 @@ class AddStoryActivity : AppCompatActivity() {
 
     private lateinit var token: String
 
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted: Boolean ->
-        if (isGranted) {
-            Toast.makeText(this, "Permission request granted", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Permission request denied", Toast.LENGTH_SHORT).show()
-        }
-    }
+//    private val requestPermissionLauncher = registerForActivityResult(
+//        ActivityResultContracts.RequestPermission()
+//    ) { isGranted: Boolean ->
+//        if (isGranted) {
+//            Toast.makeText(this, "Permission request granted", Toast.LENGTH_SHORT).show()
+//        } else {
+//            Toast.makeText(this, "Permission request denied", Toast.LENGTH_SHORT).show()
+//        }
+//    }
 
-    private fun allPermissionGranted() =
-        ContextCompat.checkSelfPermission(
-            this,
-            REQUIRED_PERMISSION
-        ) == PackageManager.PERMISSION_GRANTED
+//    private fun allPermissionGranted() =
+//        ContextCompat.checkSelfPermission(
+//            this,
+//            REQUIRED_PERMISSION
+//        ) == PackageManager.PERMISSION_GRANTED
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,9 +64,9 @@ class AddStoryActivity : AppCompatActivity() {
             insets
         }
 
-        if (!allPermissionGranted()) {
-            requestPermissionLauncher.launch(REQUIRED_PERMISSION)
-        }
+//        if (!allPermissionGranted()) {
+//            requestPermissionLauncher.launch(REQUIRED_PERMISSION)
+//        }
 
         viewModel.token.observe(this) {
             if (it != null) {
@@ -174,12 +174,24 @@ class AddStoryActivity : AppCompatActivity() {
         orientationEventListener.disable()
     }
 
-
-
-
-    companion object {
-        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("CURRENT_IMAGE_URI", currentImageUri?.toString())
     }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        savedInstanceState.getString("CURRENT_IMAGE_URI")?.let {
+            currentImageUri = Uri.parse(it)
+            showImage()
+        }
+    }
+
+
+
+//    companion object {
+//        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
+//    }
 
 
     private fun showLoading() {

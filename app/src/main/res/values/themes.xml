@@ -14,7 +14,7 @@
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/white</item>
         <item name="postSplashScreenTheme">@style/Base.Theme.StoryApp</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_edit</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
     </style>
 
     <style name="Theme.StoryApp.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
