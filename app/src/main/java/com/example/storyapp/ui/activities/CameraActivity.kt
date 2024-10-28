@@ -1,10 +1,13 @@
 package com.example.storyapp.ui.activities
 
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.Camera
 import androidx.camera.core.CameraSelector
@@ -27,6 +30,22 @@ class CameraActivity : AppCompatActivity() {
     private var camera: Camera? = null
     private var isFlashOn = false
 
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            Toast.makeText(this, "Permission request granted", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Permission request denied", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun allPermissionGranted() =
+        ContextCompat.checkSelfPermission(
+            this,
+            REQUIRED_PERMISSION
+        ) == PackageManager.PERMISSION_GRANTED
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -36,6 +55,10 @@ class CameraActivity : AppCompatActivity() {
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
+        }
+
+        if (!allPermissionGranted()) {
+            requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
 
         binding.flashLight.setOnClickListener { toggleFlashLight() }
@@ -73,7 +96,8 @@ class CameraActivity : AppCompatActivity() {
                 cameraProvider.unbindAll()
                 camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
             } catch (e: Exception) {
-                Toast.makeText(this@CameraActivity, "Gagal memunculkan kamera", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@CameraActivity, "Gagal memunculkan kamera", Toast.LENGTH_SHORT)
+                    .show()
                 Log.e(TAG, "startCamera: ${e.message}")
             }
         }, ContextCompat.getMainExecutor(this))
@@ -121,6 +145,7 @@ class CameraActivity : AppCompatActivity() {
     }
 
     companion object {
+        private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
         private const val TAG = "CameraActivity"
         const val EXTRA_CAMERAX_IMAGE = "CameraX Image"
         const val CAMERAX_RESULT = 200
