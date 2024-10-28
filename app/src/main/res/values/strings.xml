@@ -50,7 +50,7 @@
     <string name="settings">settings</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
-    <string name="appwidget_text">STAR WARS BANNER</string>
+    <string name="appwidget_text">STORY BANNER</string>
     <string name="empty_text">NO DATA</string>
     <string name="capture_photo">Capture Photo</string>
 </resources>
