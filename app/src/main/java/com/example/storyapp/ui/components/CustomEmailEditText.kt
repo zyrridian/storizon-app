@@ -20,18 +20,19 @@ class CustomEmailEditText @JvmOverloads constructor(
 ) : AppCompatEditText(context, attrs), View.OnTouchListener {
 
     private var clearButtonImage: Drawable
+    var errorStateChangedListener: ((Boolean) -> Unit)? = null // Callback for error state
 
     init {
 
         clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
-        inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+        inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
         setOnTouchListener(this)
 
         // Apply custom text attributes
         textSize = 16f
         setTextColor(ContextCompat.getColor(context, R.color.black))
         setBackgroundResource(R.drawable.bg_edit_text)
-        setPaddingRelative(50, 35, 50, 35)
+        setPaddingRelative(50, 40, 50, 40)
 
         // Monitor changes in the text
         addTextChangedListener(object : TextWatcher {
@@ -49,7 +50,7 @@ class CustomEmailEditText @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = "Enter your email"
+        hint = resources.getString(R.string.hint_email_edit_text)
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
@@ -76,7 +77,14 @@ class CustomEmailEditText @JvmOverloads constructor(
     }
 
     private fun validateEmail(s: CharSequence?) {
-        error = if (s != null && !isValidEmail(s)) "Invalid email format." else null
+        val isErrorPresent = if (s != null && !isValidEmail(s)) {
+            error = "Invalid email format."
+            true
+        } else {
+            error = null
+            false
+        }
+        errorStateChangedListener?.invoke(isErrorPresent) // Trigger callback on error change
     }
 
     private fun isValidEmail(target: CharSequence): Boolean {

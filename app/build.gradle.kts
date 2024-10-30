@@ -13,7 +13,7 @@ android {
     defaultConfig {
         applicationId = "com.example.storyapp"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -55,29 +55,29 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
 
     // Retrofit
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
 
     // Room
-    implementation("androidx.room:room-runtime:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    ksp("androidx.room:room-compiler:2.6.1")
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
 
     // Coroutines (for Room & Retrofit)
 //    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.0")
 //    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.0")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.8.6")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
 
     // Okhttp
-    implementation("com.squareup.okhttp3:okhttp:4.11.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+    implementation(libs.okhttp)
+    implementation(libs.logging.interceptor)
 
     // Glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
-    annotationProcessor("com.github.bumptech.glide:compiler:4.15.1")
+    implementation(libs.glide)
+    annotationProcessor(libs.compiler)
 
-    implementation("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
+    implementation(libs.androidx.swiperefreshlayout)
 
 
 //    implementation(libs.androidx.camera.core)
@@ -90,8 +90,11 @@ dependencies {
     implementation(libs.androidx.datastore.preferences)
 
 
-    implementation("androidx.core:core-splashscreen:1.0.1")
+    implementation(libs.androidx.core.splashscreen)
 
-    implementation("com.facebook.shimmer:shimmer:0.5.0")
+    implementation(libs.shimmer)
+
+    implementation(libs.circleimageview)
+
 }
 

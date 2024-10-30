@@ -22,14 +22,14 @@ class CustomPasswordEditText @JvmOverloads constructor(
     init {
 
         clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
-        inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+        inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
         setOnTouchListener(this)
 
         // Apply custom text attributes
         textSize = 16f
         setTextColor(ContextCompat.getColor(context, R.color.black))
         setBackgroundResource(R.drawable.bg_edit_text)
-        setPaddingRelative(50, 35, 50, 35)
+        setPaddingRelative(50, 40, 50, 40)
 
         // Monitor changes in the text
         addTextChangedListener(object : TextWatcher {
@@ -47,7 +47,7 @@ class CustomPasswordEditText @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = "Enter your password"
+        hint = resources.getString(R.string.hint_password_edit_text)
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 

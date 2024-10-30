@@ -1,11 +1,15 @@
 package com.example.storyapp.utils
 
+import android.appwidget.AppWidgetManager
 import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.net.Uri
+import android.widget.Toast
 import androidx.exifinterface.media.ExifInterface
+import com.example.storyapp.R
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
@@ -51,7 +55,7 @@ fun File.reduceFileImage(): File {
     return file
 }
 
-fun Bitmap.getRotatedBitmap(file: File): Bitmap? {
+fun Bitmap.getRotatedBitmap(file: File): Bitmap {
     val orientation = ExifInterface(file).getAttributeInt(
         ExifInterface.TAG_ORIENTATION, ExifInterface.ORIENTATION_UNDEFINED
     )
@@ -70,4 +74,8 @@ fun rotateImage(source: Bitmap, angle: Float): Bitmap {
     return Bitmap.createBitmap(
         source, 0, 0, source.width, source.height, matrix, true
     )
+}
+
+fun showToast(context: Context, message: String) {
+    Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 }

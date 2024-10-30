@@ -12,14 +12,49 @@ import kotlinx.coroutines.flow.map
 
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
+object SettingsPreferencesKeys {
+    val NAME = stringPreferencesKey("user_name")
+    val EMAIL = stringPreferencesKey("user_email")
+}
+
 class SettingsPreferences private constructor(private val dataStore: DataStore<Preferences>) {
+
+    private val nameKey = SettingsPreferencesKeys.NAME
+    private val emailKey = SettingsPreferencesKeys.EMAIL
 
     private val themeKey = booleanPreferencesKey("theme_setting")
     private val notificationKey = booleanPreferencesKey("notification_key")
-    private val languageKey = booleanPreferencesKey("notification_key")
+    private val languageKey = stringPreferencesKey("language_key")
     private val loginKey = booleanPreferencesKey("login_key")
     private val tokenKey = stringPreferencesKey("token_key")
 
+    // Save user name
+    suspend fun saveUserName(name: String) {
+        dataStore.edit { preferences ->
+            preferences[nameKey] = name
+        }
+    }
+
+    // Get user name
+    fun getUserName(): Flow<String?> {
+        return dataStore.data.map { preferences ->
+            preferences[nameKey]
+        }
+    }
+
+    // Save user email
+    suspend fun saveUserEmail(email: String) {
+        dataStore.edit { preferences ->
+            preferences[emailKey] = email
+        }
+    }
+
+    // Get user email
+    fun getUserEmail(): Flow<String?> {
+        return dataStore.data.map { preferences ->
+            preferences[emailKey]
+        }
+    }
 
     // login
     suspend fun saveLoginSession(isLogin: Boolean) {
@@ -56,6 +91,18 @@ class SettingsPreferences private constructor(private val dataStore: DataStore<P
     suspend fun saveThemeSetting(isDarkModeActive: Boolean) {
         dataStore.edit { preferences ->
             preferences[themeKey] = isDarkModeActive
+        }
+    }
+
+    fun getLanguageSetting(): Flow<String> {
+        return dataStore.data.map { preferences ->
+            preferences[languageKey] ?: ""
+        }
+    }
+
+    suspend fun saveLanguageSetting(language: String) {
+        dataStore.edit { preferences ->
+            preferences[languageKey] = language
         }
     }
 

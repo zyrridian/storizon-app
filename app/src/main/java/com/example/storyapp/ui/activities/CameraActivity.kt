@@ -4,8 +4,6 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
@@ -21,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.storyapp.R
 import com.example.storyapp.databinding.ActivityCameraBinding
 import com.example.storyapp.utils.createCustomTempFile
+import com.example.storyapp.utils.showToast
 
 class CameraActivity : AppCompatActivity() {
 
@@ -33,14 +32,13 @@ class CameraActivity : AppCompatActivity() {
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted: Boolean ->
-        if (isGranted) {
-            Toast.makeText(this, "Permission request granted", Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Permission request denied", Toast.LENGTH_SHORT).show()
-        }
+        val message =
+            if (isGranted) getString(R.string.toast_permission_granted)
+            else getString(R.string.toast_permission_denied)
+        showToast(this, message)
     }
 
-    private fun allPermissionGranted() =
+    private fun isPermissionGranted() =
         ContextCompat.checkSelfPermission(
             this,
             REQUIRED_PERMISSION
@@ -51,31 +49,32 @@ class CameraActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityCameraBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
 
-        if (!allPermissionGranted()) {
-            requestPermissionLauncher.launch(REQUIRED_PERMISSION)
-        }
+        if (!isPermissionGranted()) requestPermissionLauncher.launch(REQUIRED_PERMISSION)
 
+        setupListeners()
+
+    }
+
+    private fun setupListeners() {
         binding.flashLight.setOnClickListener { toggleFlashLight() }
         binding.captureButton.setOnClickListener { takePhoto() }
         binding.switchCamera.setOnClickListener {
-            cameraSelector =
-                if (cameraSelector.equals(CameraSelector.DEFAULT_BACK_CAMERA)) CameraSelector.DEFAULT_FRONT_CAMERA
-                else CameraSelector.DEFAULT_BACK_CAMERA
+            cameraSelector = if (cameraSelector == CameraSelector.DEFAULT_BACK_CAMERA)
+                CameraSelector.DEFAULT_FRONT_CAMERA else CameraSelector.DEFAULT_BACK_CAMERA
             startCamera()
         }
-
     }
 
     override fun onResume() {
         super.onResume()
         startCamera()
-        hideSystemUI()
     }
 
     private fun toggleFlashLight() {
@@ -87,18 +86,16 @@ class CameraActivity : AppCompatActivity() {
     private fun startCamera() {
         val cameraProviderFuture = ProcessCameraProvider.getInstance(this)
         cameraProviderFuture.addListener({
-            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-            val preview = Preview.Builder()
-                .build()
-                .also { it.setSurfaceProvider(binding.viewFinder.surfaceProvider) }
+            val cameraProvider = cameraProviderFuture.get()
+            val preview = Preview.Builder().build().also {
+                it.setSurfaceProvider(binding.viewFinder.surfaceProvider)
+            }
             imageCapture = ImageCapture.Builder().build()
             try {
                 cameraProvider.unbindAll()
                 camera = cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageCapture)
             } catch (e: Exception) {
-                Toast.makeText(this@CameraActivity, "Gagal memunculkan kamera", Toast.LENGTH_SHORT)
-                    .show()
-                Log.e(TAG, "startCamera: ${e.message}")
+                showToast(this@CameraActivity, getString(R.string.failed_to_display_camera))
             }
         }, ContextCompat.getMainExecutor(this))
     }
@@ -119,34 +116,15 @@ class CameraActivity : AppCompatActivity() {
                 }
 
                 override fun onError(exception: ImageCaptureException) {
-                    Toast.makeText(
-                        this@CameraActivity,
-                        "Gagal mengambil gambar.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                    Log.e(TAG, "onError: ${exception.message}")
+                    showToast(this@CameraActivity, getString(R.string.failed_to_capture_image))
                 }
 
             }
         )
     }
 
-    private fun hideSystemUI() {
-//        @Suppress("DEPRECATION")
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-//            window.insetsController?.hide(WindowInsets.Type.statusBars())
-//        } else {
-//            window.setFlags(
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-//                WindowManager.LayoutParams.FLAG_FULLSCREEN
-//            )
-//        }
-//        supportActionBar?.hide()
-    }
-
     companion object {
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
-        private const val TAG = "CameraActivity"
         const val EXTRA_CAMERAX_IMAGE = "CameraX Image"
         const val CAMERAX_RESULT = 200
     }

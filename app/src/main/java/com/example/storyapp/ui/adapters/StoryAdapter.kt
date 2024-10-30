@@ -1,6 +1,7 @@
 package com.example.storyapp.ui.adapters
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -10,10 +11,11 @@ import com.bumptech.glide.Glide
 import com.example.storyapp.data.local.entity.StoryEntity
 import com.example.storyapp.databinding.ItemDataStoryBinding
 import com.example.storyapp.databinding.ItemShimmerStoryBinding
+import com.example.storyapp.ui.activities.DetailActivity
 
 class StoryAdapter(
     private var isLoading: Boolean = true,
-    // private val onFavoriteClick: (StoryEntity) -> Unit
+//    private val onFavoriteClick: (StoryEntity) -> Unit
 ) : ListAdapter<StoryEntity, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
     override fun getItemViewType(position: Int): Int {
@@ -62,6 +64,11 @@ class StoryAdapter(
                 .into(binding.imageView)
             binding.titleTextView.text = story.name
             binding.descriptionTitle.text = story.description
+            itemView.setOnClickListener {
+                val intent = Intent(binding.root.context, DetailActivity::class.java)
+                intent.putExtra("EXTRA_STORY", story)
+                binding.root.context.startActivity(intent)
+            }
         }
     }
 

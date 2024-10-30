@@ -1,0 +1,73 @@
+<resources>
+
+    <string name="app_name">Aplikasi Cerita</string>
+    <string name="add_widget">Tambah widget</string>
+    <string name="app_widget_description">Ini adalah deskripsi widget aplikasi</string>
+    <string name="appwidget_text">SPANDUK CERITA</string>
+    <string name="empty_text">TIDAK ADA DATA</string>
+
+    <string name="sign_in">Masuk</string>
+    <string name="register">Daftar</string>
+    <string name="login">Login</string>
+    <string name="dark_mode">Mode Gelap</string>
+    <string name="settings">Pengaturan</string>
+    <string name="notifications">Notifikasi</string>
+    <string name="language">Bahasa</string>
+    <string name="logout">Keluar</string>
+    <string name="about">Tentang</string>
+    <string name="camera">Kamera</string>
+    <string name="gallery">Galeri</string>
+    <string name="upload">Unggah</string>
+
+    <string name="guest">Tamu</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Batal</string>
+    <string name="yes">Ya</string>
+    <string name="no">Tidak</string>
+
+    <string name="login_title">Selamat Datang Kembali!</string>
+    <string name="login_subtitle">Masuk untuk melanjutkan perjalananmu</string>
+    <string name="register_title">Bergabunglah Hari Ini!</string>
+    <string name="register_subtitle">Buat akun untuk memulai petualanganmu</string>
+
+    <string name="hint_name_edit_text">Masukkan nama Anda</string>
+    <string name="hint_email_edit_text">Masukkan email Anda</string>
+    <string name="hint_password_edit_text">Masukkan kata sandi Anda</string>
+    <string name="hint_story_edit_text">Tulis cerita Anda…</string>
+
+    <string name="content_description_back_button">Kembali ke layar sebelumnya</string>
+    <string name="content_description_image_upload_preview">Pratinjau gambar yang dipilih</string>
+    <string name="content_description_flash_light">Nyalakan senter</string>
+    <string name="content_description_flip_camera">Balik kamera</string>
+    <string name="content_description_story_image">Pratinjau gambar cerita yang dipilih</string>
+    <string name="content_description_app_logo">Gambar logo aplikasi</string>
+    <string name="content_description_navigation_icon">Buka menu navigasi</string>
+    <string name="content_description_add_new_story">tambah cerita baru</string>
+    <string name="content_description_notifications_icon">Ikon notifikasi</string>
+    <string name="content_description_dark_mode_icon">Ikon mode gelap</string>
+    <string name="content_description_language_icon">Ikon bahasa</string>
+    <string name="content_description_language_button">Ikon tombol bahasa</string>
+    <string name="content_description_logout_icon">Ikon keluar</string>
+    <string name="content_description_profile_image">Gambar profil pengguna</string>
+    <string name="content_description_capture_image">Ambil gambar</string>
+
+    <string name="error_empty_name">Nama tidak boleh kosong.</string>
+    <string name="error_empty_email">Email tidak boleh kosong.</string>
+    <string name="error_empty_password">Kata sandi tidak boleh kosong.</string>
+    <string name="error_invalid_email">Format email tidak valid.</string>
+    <string name="error_short_password">Kata sandi harus minimal 8 karakter.</string>
+    <string name="error_fill_all_fields">Mohon isi semua kolom dengan data yang benar sebelum mengirim.</string>
+
+    <string name="toast_permission_granted">Izin diberikan</string>
+    <string name="toast_permission_denied">Izin ditolak</string>
+    <string name="toast_account_created_successfully">Akun berhasil dibuat!</string>
+    <string name="toast_failed_to_load_stories">Gagal memuat cerita</string>
+    <string name="toast_nav_about">Tentang diklik</string>
+
+    <string name="failed_to_display_camera">Gagal menampilkan kamera</string>
+    <string name="failed_to_capture_image">Gagal mengambil gambar</string>
+    <string name="no_email_provided">Email tidak tersedia</string>
+    <string name="select_language">Pilih Bahasa</string>
+    <string name="are_you_sure_you_want_to_log_out">Apakah Anda yakin ingin keluar?</string>
+
+</resources>

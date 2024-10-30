@@ -1,9 +1,12 @@
 package com.example.storyapp.data.local.entity
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
 @Entity(tableName = "stories")
+@Parcelize
 data class StoryEntity(
     @PrimaryKey val id: String,
     val name: String,
@@ -13,4 +16,4 @@ data class StoryEntity(
     val lat: Double,
     val lon: Double,
     var isFavorite: Boolean = false
-)
+) : Parcelable
