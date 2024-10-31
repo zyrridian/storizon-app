@@ -1,6 +1,0 @@
-<resources>
-
-    <style name="Widget.StoryApp.AppWidget.Container" parent="android:Widget"></style>
-
-    <style name="Widget.StoryApp.AppWidget.InnerView" parent="android:Widget"></style>
-</resources>
