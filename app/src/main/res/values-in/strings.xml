@@ -3,8 +3,6 @@
     <string name="app_name">Aplikasi Cerita</string>
     <string name="add_widget">Tambah widget</string>
     <string name="app_widget_description">Ini adalah deskripsi widget aplikasi</string>
-    <string name="appwidget_text">SPANDUK CERITA</string>
-    <string name="empty_text">TIDAK ADA DATA</string>
 
     <string name="sign_in">Masuk</string>
     <string name="register">Daftar</string>
@@ -69,5 +67,9 @@
     <string name="no_email_provided">Email tidak tersedia</string>
     <string name="select_language">Pilih Bahasa</string>
     <string name="are_you_sure_you_want_to_log_out">Apakah Anda yakin ingin keluar?</string>
+
+    <string name="todo">TODO</string>
+    <string name="appwidget_text">STORY BANNER</string>
+    <string name="empty_text">NO DATA</string>
 
 </resources>

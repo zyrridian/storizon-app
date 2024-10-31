@@ -3,8 +3,6 @@
     <string name="app_name">Приложение Историй</string>
     <string name="add_widget">Добавить виджет</string>
     <string name="app_widget_description">Описание виджета приложения</string>
-    <string name="appwidget_text">БАННЕР ИСТОРИЙ</string>
-    <string name="empty_text">НЕТ ДАННЫХ</string>
 
     <string name="sign_in">Войти</string>
     <string name="register">Регистрация</string>
@@ -69,5 +67,9 @@
     <string name="no_email_provided">Email не указан</string>
     <string name="select_language">Выберите язык</string>
     <string name="are_you_sure_you_want_to_log_out">Вы уверены, что хотите выйти?</string>
+
+    <string name="todo">TODO</string>
+    <string name="appwidget_text">STORY BANNER</string>
+    <string name="empty_text">NO DATA</string>
 
 </resources>
