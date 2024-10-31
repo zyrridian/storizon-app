@@ -3,11 +3,11 @@ package com.example.storyapp.ui.widgets
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
 import android.appwidget.AppWidgetProvider
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.widget.RemoteViews
-import android.widget.Toast
 import androidx.core.net.toUri
 import com.example.storyapp.R
 
@@ -18,6 +18,7 @@ class StoryWidget : AppWidgetProvider() {
 
     companion object {
         private const val TOAST_ACTION = "com.dicoding.picodiploma.TOAST_ACTION"
+        const val UPDATE_WIDGET_ACTION = "com.example.storyapp.UPDATE_WIDGET"
         const val EXTRA_ITEM = "com.dicoding.picodiploma.EXTRA_ITEM"
         //pindahkan fungsi ini ke companion object, karena kita akan memanggil fungsi ini dari luar kelas
         private fun updateAppWidget(context: Context, appWidgetManager: AppWidgetManager, appWidgetId: Int) {
@@ -53,11 +54,18 @@ class StoryWidget : AppWidgetProvider() {
 
     override fun onReceive(context: Context, intent: Intent) {
         super.onReceive(context, intent)
-        if (intent.action != null) {
-            if (intent.action == TOAST_ACTION) {
-                val viewIndex = intent.getIntExtra(EXTRA_ITEM, 0)
-                Toast.makeText(context, "Touched view $viewIndex", Toast.LENGTH_SHORT).show()
-            }
+//        if (intent.action != null) {
+//            if (intent.action == TOAST_ACTION) {
+//                val viewIndex = intent.getIntExtra(EXTRA_ITEM, 0)
+//                Toast.makeText(context, "Touched view $viewIndex", Toast.LENGTH_SHORT).show()
+//            }
+//        }
+        if (intent.action == UPDATE_WIDGET_ACTION) {
+            val appWidgetManager = AppWidgetManager.getInstance(context)
+            val appWidgetIds = appWidgetManager.getAppWidgetIds(
+                ComponentName(context, StoryWidget::class.java)
+            )
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.stack_view)
         }
     }
 

@@ -133,19 +133,7 @@ class StoryRepository(
         emitSource(localData)
     }
 
-    fun fetchImageForStackWidget(token: String): LiveData<Resource<List<StoryResponse>>> =
-        liveData {
-            emit(Resource.Loading)
-            try {
-                val response =
-                    apiService.getAllStories("Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLVBVc1JDcXdIcFZXM284cGUiLCJpYXQiOjE3MzAxMDk1MTF9.sTvbouekQqTo58Fn_s9loE-3XbE_eJXphojBjkgyjHw")
-                val stories = response.listStory
-                emit(Resource.Success(stories))
-            } catch (e: Exception) {
-                Log.e("StoryRepository", "fetchImageForStackWidget: ${e.message}")
-                emit(Resource.Error(e.message ?: "An unknown error occurred"))
-            }
-        }
+//    fun getLocalStories(): LiveData<List<StoryEntity>> = storyDao.getAllStories()
 
     companion object {
         @Volatile

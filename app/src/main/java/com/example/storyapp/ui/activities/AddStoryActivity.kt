@@ -102,7 +102,7 @@ class AddStoryActivity : AppCompatActivity() {
 
     private fun uploadImage() {
         currentImageUri?.let { uri ->
-            viewModel.addNewUser(
+            viewModel.addNewStory(
                 uri = uri,
                 description = binding.edAddDescription.text.toString(),
                 token = token,

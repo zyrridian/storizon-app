@@ -12,7 +12,6 @@ import com.example.storyapp.data.StoryRepository
 import com.example.storyapp.data.local.entity.StoryEntity
 import com.example.storyapp.data.remote.response.auth.LoginResponse
 import com.example.storyapp.data.remote.response.auth.RegisterResponse
-import com.example.storyapp.data.remote.response.story.StoryResponse
 import com.example.storyapp.ui.SettingsPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -37,14 +36,37 @@ class StoryViewModel(
     private val _token = MutableLiveData<String?>()
     val token: LiveData<String?> = _token
 
-    private val _imageUrls = MutableLiveData<Resource<List<StoryResponse>>>()
-    val imageUrls: LiveData<Resource<List<StoryResponse>>> = _imageUrls
+    private val _stories = MutableLiveData<Resource<List<StoryEntity>>>()
+    val stories: LiveData<Resource<List<StoryEntity>>> = _stories
+
+//    private val _localStories = MutableLiveData<List<StoryEntity>>()
+//    val localStories: LiveData<List<StoryEntity>> = _localStories
 
     init {
         viewModelScope.launch {
             _isLoggedIn.value = preferences.getLoginSession().first()
             _token.value = preferences.getTokenSession().firstOrNull()
+//            loadLocalStories()
         }
+    }
+
+    // Get stories
+    fun fetchAllStories(token: String) {
+        viewModelScope.launch {
+            repository.getAllStories(token).observeForever { result ->
+                _stories.postValue(result)
+            }
+        }
+    }
+
+    // Add story
+    fun addNewStory(
+        uri: Uri,
+        description: String,
+        token: String,
+        context: Context
+    ): LiveData<Resource<String>> {
+        return repository.addNewStory(uri, description, token, context)
     }
 
     // Theme functions
@@ -55,7 +77,8 @@ class StoryViewModel(
         }
     }
 
-    fun saveUserData(name: String, email: String, token: String) {
+    // Save user login session
+    fun saveUserLoginSession(name: String, email: String, token: String) {
         viewModelScope.launch {
             preferences.saveUserName(name)
             preferences.saveUserEmail(email)
@@ -65,25 +88,7 @@ class StoryViewModel(
         }
     }
 
-    fun getUserData() {
-        viewModelScope.launch {
-            _name.value = preferences.getUserName().toString()
-            _email.value = preferences.getUserEmail().toString()
-            _token.value = preferences.getTokenSession().toString()
-        }
-    }
-
-    fun logout() {
-        viewModelScope.launch {
-            preferences.saveLoginSession(false)
-            _isLoggedIn.value = false
-        }
-    }
-
-
-    private val _stories = MutableLiveData<Resource<List<StoryEntity>>>()
-    val stories: LiveData<Resource<List<StoryEntity>>> = _stories
-
+    // Register user
     fun registerUser(
         name: String,
         email: String,
@@ -92,35 +97,26 @@ class StoryViewModel(
         return repository.registerUser(name, email, password)
     }
 
+    // Login user
     fun loginUser(email: String, password: String): LiveData<Resource<LoginResponse>> {
         return repository.loginUser(email, password)
     }
 
-    fun addNewUser(
-        uri: Uri,
-        description: String,
-        token: String,
-        context: Context
-    ): LiveData<Resource<String>> {
-        return repository.addNewStory(uri, description, token, context)
-    }
-
-    fun fetchAllStories(token: String) {
+    // Logout
+    fun logout() {
         viewModelScope.launch {
-            repository.getAllStories(token).observeForever { result ->
-                _stories.postValue(result)
-            }
+            preferences.saveLoginSession(false)
+            _isLoggedIn.value = false
         }
     }
 
+//    fun loadLocalStories() {
+//        viewModelScope.launch {
+//            repository.getLocalStories().observeForever { stories ->
+//                _localStories.postValue(stories)
+//            }
+//        }
+//    }
 
-    // for stack widgets
-    fun fetchImageForStackWidget(token: String) {
-        viewModelScope.launch {
-            repository.fetchImageForStackWidget(token).observeForever {
-                _imageUrls.postValue(it)
-            }
-        }
-    }
 
 }

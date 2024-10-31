@@ -181,7 +181,7 @@ class LoginActivity : AppCompatActivity() {
                 is Resource.Success -> {
                     hideLoading()
                     showToast("Welcome, ${result.data.loginResult.name}")
-                    viewModel.saveUserData(
+                    viewModel.saveUserLoginSession(
                         result.data.loginResult.name,
                         email,
                         result.data.loginResult.token
