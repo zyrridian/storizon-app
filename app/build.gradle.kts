@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.example.storyapp"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.storyapp"
@@ -68,6 +68,7 @@ dependencies {
 //    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.0")
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
 
     // Okhttp
     implementation(libs.okhttp)
@@ -95,6 +96,8 @@ dependencies {
     implementation(libs.shimmer)
 
     implementation(libs.circleimageview)
+    implementation(libs.picasso)
+
 
 }
 

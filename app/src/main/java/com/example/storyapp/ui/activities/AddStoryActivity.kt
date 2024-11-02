@@ -21,6 +21,7 @@ import com.example.storyapp.databinding.ActivityAddStoryBinding
 import com.example.storyapp.ui.viewmodel.StoryViewModel
 import com.example.storyapp.ui.viewmodel.ViewModelFactory
 import com.example.storyapp.ui.activities.CameraActivity.Companion.CAMERAX_RESULT
+import com.example.storyapp.utils.showToast
 
 class AddStoryActivity : AppCompatActivity() {
 
@@ -88,7 +89,7 @@ class AddStoryActivity : AppCompatActivity() {
             backButton.setOnClickListener { finish() }
             galleryButton.setOnClickListener { startGallery() }
             cameraButton.setOnClickListener { startCameraX() }
-            buttonAdd.setOnClickListener { uploadImage() }
+            buttonAdd.setOnClickListener { uploadStory() }
         }
     }
 
@@ -100,7 +101,8 @@ class AddStoryActivity : AppCompatActivity() {
         launcherIntentCameraX.launch(Intent(this, CameraActivity::class.java))
     }
 
-    private fun uploadImage() {
+    private fun uploadStory() {
+        if (!validation()) return
         currentImageUri?.let { uri ->
             viewModel.addNewStory(
                 uri = uri,
@@ -123,6 +125,24 @@ class AddStoryActivity : AppCompatActivity() {
 
     private fun showImage() {
         currentImageUri?.let { binding.imageView.setImageURI(it) }
+    }
+
+    private fun validation(): Boolean {
+        var isValid = true
+
+        if (currentImageUri == null) {
+            isValid = false
+            showToast(this, getString(R.string.toast_please_select_an_image))
+        }
+
+        val description = binding.edAddDescription.text.toString()
+        if (description.isEmpty()) {
+            binding.edAddDescription.error = getString(R.string.error_description_cannot_be_empty)
+            isValid = false
+            showToast(this, getString(R.string.toast_please_add_a_description))
+        }
+
+        return isValid
     }
 
 

@@ -2,78 +2,77 @@ package com.example.storyapp.ui.widgets
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.util.Log
 import android.widget.RemoteViews
 import android.widget.RemoteViewsService
-import androidx.core.os.bundleOf
 import com.example.storyapp.R
+import com.example.storyapp.data.StoryRepository
+import com.example.storyapp.data.local.entity.StoryEntity
+import com.example.storyapp.di.Injection
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.runBlocking
 
-internal class StackRemoteViewsFactory(
-    private val mContext: Context,
-//    private val viewModel: StoryViewModel
-) : RemoteViewsService.RemoteViewsFactory {
+class StackRemoteViewsFactory(private val mContext: Context) : RemoteViewsService.RemoteViewsFactory {
 
-    private val mWidgetItems = ArrayList<Bitmap>()
-//    private var stories: List<StoryEntity> = listOf()
+    private val storyList = mutableListOf<StoryEntity>()
+    private val storyRepository: StoryRepository = Injection.provideRepository(mContext)
 
     override fun onCreate() {
-//        // Load local stories once widget is created
-//        viewModel.localStories.observeForever {
-//            stories = it ?: listOf()
-//            updateWidget()
-//        }
+        runBlocking {
+            val result = storyRepository.getLocalStories()
+            storyList.clear()
+            storyList.addAll(result)
+        }
     }
 
     override fun onDataSetChanged() {
-        //Ini berfungsi untuk melakukan refresh saat terjadi perubahan.
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.darth_vader))
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.star_wars_logo))
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.storm_trooper))
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.starwars))
-        mWidgetItems.add(BitmapFactory.decodeResource(mContext.resources, R.drawable.falcon))
+        runBlocking {
+            val result = storyRepository.getLocalStories()
+            storyList.clear()
+            storyList.addAll(result)
+        }
     }
 
-    override fun getViewAt(position: Int): RemoteViews? {
-        val rv = RemoteViews(mContext.packageName, R.layout.widget_item)
-        rv.setImageViewBitmap(R.id.widget_image, mWidgetItems[position])
+    override fun getViewAt(position: Int): RemoteViews {
+        if (position == -1 || position >= storyList.size) {
+            return RemoteViews(mContext.packageName, R.layout.widget_item).apply {
+                setImageViewResource(R.id.widget_image, R.drawable.ic_image_placeholder)
+            }
+        }
 
-        val extras = bundleOf(
-            StoryWidget.EXTRA_ITEM to position
-        )
-        val fillInIntent = Intent()
-        fillInIntent.putExtras(extras)
+        val story = storyList[position]
+        val views = RemoteViews(mContext.packageName, R.layout.widget_item)
 
-        rv.setOnClickFillInIntent(R.id.widget_image, fillInIntent)
-        return rv
-//        if (stories.isEmpty()) return null
-//
-//        val story = stories[position]
-//        val rv = RemoteViews(mContext.packageName, R.layout.widget_item)
-//
-//        // Populate the widget with data from the StoryEntity
-//        rv.setTextViewText(R.id.story_title, story.name)
-//        rv.setTextViewText(R.id.story_description, story.description)
-//        rv.setImageViewUri(R.id.widget_image, Uri.parse(story.photoUrl))
-//        Log.d("ERORRRRRRRRRRRRRRRRRRRRRR", story.photoUrl)
-//
-//        return rv
+        try {
+            val bitmap = Picasso.get().load(story.photoUrl).get()
+            views.setImageViewBitmap(R.id.widget_image, bitmap)
+        } catch (e: Exception) {
+            Log.e("StoryRemoteViewsFactory", "Error loading image: ${e.message}")
+            views.setImageViewResource(R.id.widget_image, R.drawable.ic_image_placeholder)
+        }
+
+        // Set up the click handler for the widget item
+        val fillInIntent = Intent().apply {
+            action = StoryWidget.CLICK_ACTION
+            putExtra(StoryWidget.EXTRA_STORY_ENTITY, story)
+        }
+
+        Log.e("StoryRemoteViewsFactory", "Error loading image: ${story.photoUrl}")
+        views.setOnClickFillInIntent(R.id.widget_image, fillInIntent)
+
+        return views
+
     }
 
-    override fun getCount(): Int = mWidgetItems.size//stories.size
+    override fun getCount(): Int = storyList.size
 
-//    private fun updateWidget() {
-//        val intent = Intent(mContext, StoryWidget::class.java).apply {
-//            action = StoryWidget.UPDATE_WIDGET_ACTION
-//        }
-//        mContext.sendBroadcast(intent)
-//    }
+    override fun onDestroy() {
+        storyList.clear()
+    }
 
-    override fun onDestroy() {}
+    override fun getItemId(position: Int): Long = 0
 
-    override fun getItemId(position: Int): Long = 0//position.toLong()
-
-    override fun hasStableIds(): Boolean = false //true
+    override fun hasStableIds(): Boolean = true
 
     override fun getLoadingView(): RemoteViews? = null
 

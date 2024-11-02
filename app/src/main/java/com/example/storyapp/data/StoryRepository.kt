@@ -14,7 +14,6 @@ import com.example.storyapp.data.remote.request.auth.RegisterRequest
 import com.example.storyapp.data.remote.response.ErrorResponse
 import com.example.storyapp.data.remote.response.auth.LoginResponse
 import com.example.storyapp.data.remote.response.auth.RegisterResponse
-import com.example.storyapp.data.remote.response.story.StoryResponse
 import com.example.storyapp.utils.Resource
 import com.example.storyapp.utils.reduceFileImage
 import com.example.storyapp.utils.uriToFile
@@ -45,7 +44,7 @@ class StoryRepository(
             } catch (e: HttpException) {
                 val errorMessage = e.response()?.errorBody()?.string().let { errorBody ->
                     Gson().fromJson(errorBody, ErrorResponse::class.java).message
-                } ?: "An unknown error occurred"
+                }
                 Log.e("StoryRepository", "registerUser: $errorMessage")
                 emit(Resource.Error(errorMessage))
             } catch (e: Exception) {
@@ -68,7 +67,7 @@ class StoryRepository(
         } catch (e: HttpException) {
             val errorMessage = e.response()?.errorBody()?.string().let { errorBody ->
                 Gson().fromJson(errorBody, ErrorResponse::class.java).message
-            } ?: "An unknown error occurred"
+            }
             Log.e("StoryRepository", "loginUser: $errorMessage")
             emit(Resource.Error(errorMessage))
         } catch (e: Exception) {
@@ -133,7 +132,7 @@ class StoryRepository(
         emitSource(localData)
     }
 
-//    fun getLocalStories(): LiveData<List<StoryEntity>> = storyDao.getAllStories()
+    suspend fun getLocalStories(): List<StoryEntity> = storyDao.getStoriesForWidget()
 
     companion object {
         @Volatile

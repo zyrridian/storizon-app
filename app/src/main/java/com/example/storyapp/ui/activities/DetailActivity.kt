@@ -12,6 +12,7 @@ import com.example.storyapp.databinding.ActivityDetailBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
 
+@Suppress("DEPRECATION")
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
@@ -60,7 +61,7 @@ class DetailActivity : AppCompatActivity() {
     }
 
     companion object {
-        private const val EXTRA_STORY = "EXTRA_STORY"
+        const val EXTRA_STORY = "EXTRA_STORY"
     }
 
 }
