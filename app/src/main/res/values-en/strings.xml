@@ -55,12 +55,15 @@
     <string name="error_invalid_email">Invalid email format.</string>
     <string name="error_short_password">Password must be at least 8 characters.</string>
     <string name="error_fill_all_fields">Please fill out all fields with correct data before submitting.</string>
+    <string name="error_description_cannot_be_empty">Description cannot be empty</string>
 
     <string name="toast_permission_granted">Permission granted</string>
     <string name="toast_permission_denied">Permission denied</string>
     <string name="toast_account_created_successfully">Account created successfully!</string>
     <string name="toast_failed_to_load_stories">Failed to load stories</string>
-    <string name="toast_nav_about">About clicked</string>
+    <string name="toast_nav_about">MD-33|RezkyAditiaFauzan</string>
+    <string name="toast_please_select_an_image">Please select an image.</string>
+    <string name="toast_please_add_a_description">Please add a description.</string>
 
     <string name="failed_to_display_camera">Failed to display camera</string>
     <string name="failed_to_capture_image">Failed to capture image</string>

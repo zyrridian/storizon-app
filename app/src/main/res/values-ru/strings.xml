@@ -55,12 +55,15 @@
     <string name="error_invalid_email">Неверный формат email.</string>
     <string name="error_short_password">Пароль должен содержать не менее 8 символов.</string>
     <string name="error_fill_all_fields">Пожалуйста, заполните все поля корректными данными перед отправкой.</string>
+    <string name="error_description_cannot_be_empty">Описание не может быть пустым</string>
 
     <string name="toast_permission_granted">Доступ предоставлен</string>
     <string name="toast_permission_denied">Доступ запрещен</string>
     <string name="toast_account_created_successfully">Аккаунт успешно создан!</string>
     <string name="toast_failed_to_load_stories">Не удалось загрузить истории</string>
-    <string name="toast_nav_about">Нажато «О приложении»</string>
+    <string name="toast_nav_about">MD-33|RezkyAditiaFauzan</string>
+    <string name="toast_please_select_an_image">Пожалуйста, выберите изображение.</string>
+    <string name="toast_please_add_a_description">Пожалуйста, добавьте описание.</string>
 
     <string name="failed_to_display_camera">Не удалось отобразить камеру</string>
     <string name="failed_to_capture_image">Не удалось сделать снимок</string>

@@ -55,12 +55,15 @@
     <string name="error_invalid_email">Format email tidak valid.</string>
     <string name="error_short_password">Kata sandi harus minimal 8 karakter.</string>
     <string name="error_fill_all_fields">Mohon isi semua kolom dengan data yang benar sebelum mengirim.</string>
+    <string name="error_description_cannot_be_empty">Deskripsi tidak boleh kosong</string>
 
     <string name="toast_permission_granted">Izin diberikan</string>
     <string name="toast_permission_denied">Izin ditolak</string>
     <string name="toast_account_created_successfully">Akun berhasil dibuat!</string>
     <string name="toast_failed_to_load_stories">Gagal memuat cerita</string>
-    <string name="toast_nav_about">Tentang diklik</string>
+    <string name="toast_nav_about">MD-33|RezkyAditiaFauzan</string>
+    <string name="toast_please_select_an_image">Silakan pilih gambar.</string>
+    <string name="toast_please_add_a_description">Silakan tambahkan deskripsi.</string>
 
     <string name="failed_to_display_camera">Gagal menampilkan kamera</string>
     <string name="failed_to_capture_image">Gagal mengambil gambar</string>

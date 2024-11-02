@@ -50,8 +50,8 @@ class RegisterActivity : AppCompatActivity() {
             ObjectAnimator.ofFloat(binding.edRegisterName, View.ALPHA, 1f).setDuration(200),
             ObjectAnimator.ofFloat(binding.edRegisterEmail, View.ALPHA, 1f).setDuration(200),
             ObjectAnimator.ofFloat(binding.edRegisterPassword, View.ALPHA, 1f).setDuration(200),
-            ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(200),
-            ObjectAnimator.ofFloat(binding.registerButton, View.ALPHA, 1f).setDuration(200)
+            ObjectAnimator.ofFloat(binding.registerButton, View.ALPHA, 1f).setDuration(200),
+            ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(200)
         )
 
         AnimatorSet().apply {
