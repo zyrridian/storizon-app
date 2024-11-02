@@ -26,6 +26,7 @@ datastorePreferences = "1.1.1"
 roomCompiler = "2.6.1"
 shimmer = "0.5.0"
 swiperefreshlayout = "1.2.0-alpha01"
+zoomimageViewGlide = "1.0.2"
 
 [libraries]
 androidx-camera-camera2 = { module = "androidx.camera:camera-camera2", version.ref = "cameraLifecycle" }
@@ -60,6 +61,7 @@ okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 picasso = { module = "com.squareup.picasso:picasso", version.ref = "picasso" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "converterGson" }
 shimmer = { module = "com.facebook.shimmer:shimmer", version.ref = "shimmer" }
+zoomimage-view-glide = { module = "io.github.panpf.zoomimage:zoomimage-view-glide", version.ref = "zoomimageViewGlide" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

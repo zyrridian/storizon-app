@@ -20,7 +20,7 @@ class CustomEmailEditText @JvmOverloads constructor(
 ) : AppCompatEditText(context, attrs), View.OnTouchListener {
 
     private var clearButtonImage: Drawable
-    var errorStateChangedListener: ((Boolean) -> Unit)? = null // Callback for error state
+    private var errorStateChangedListener: ((Boolean) -> Unit)? = null // Callback for error state
 
     init {
 

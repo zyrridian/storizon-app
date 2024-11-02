@@ -23,7 +23,6 @@ class SettingsPreferences private constructor(private val dataStore: DataStore<P
     private val emailKey = SettingsPreferencesKeys.EMAIL
 
     private val themeKey = booleanPreferencesKey("theme_setting")
-    private val notificationKey = booleanPreferencesKey("notification_key")
     private val languageKey = stringPreferencesKey("language_key")
     private val loginKey = booleanPreferencesKey("login_key")
     private val tokenKey = stringPreferencesKey("token_key")

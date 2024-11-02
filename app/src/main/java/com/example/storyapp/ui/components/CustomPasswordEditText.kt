@@ -23,10 +23,8 @@ class CustomPasswordEditText @JvmOverloads constructor(
 
         clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
         inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
-        setOnTouchListener(this)
-
-        // Apply custom text attributes
         textSize = 16f
+        setOnTouchListener(this)
         setTextColor(ContextCompat.getColor(context, R.color.black))
         setBackgroundResource(R.drawable.bg_edit_text)
         setPaddingRelative(50, 40, 50, 40)

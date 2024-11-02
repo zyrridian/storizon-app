@@ -14,7 +14,6 @@ import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
 import retrofit2.http.Part
-import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface ApiService {
@@ -34,19 +33,8 @@ interface ApiService {
     suspend fun addNewStory(
         @Header("Authorization") token: String,
         @Part("description") description: RequestBody,
-//        @Part("lat") lat: Float? = null,
-//        @Part("lon") lon: Float? = null,
         @Part photo: MultipartBody.Part
     ): Response
-
-    @Multipart
-    @POST("stories/guest")
-    suspend fun addNewStoryGuest(
-        @Part("description") description: RequestBody,
-//        @Part("lat") lat: Float? = null,
-//        @Part("lon") lon: Float? = null,
-        @Part photo: MultipartBody.Part
-    ): RegisterResponse
 
     @GET("stories")
     suspend fun getAllStories(
@@ -56,9 +44,4 @@ interface ApiService {
         @Query("location") location: Int? = null // Default to 0 if not provided
     ): ListStoryResponse
 
-    @GET("stories/{id}")
-    suspend fun getDetailStory(
-        @Header("Authorization") token: String,
-        @Path("id") id: String,
-    ): ListStoryResponse
 }

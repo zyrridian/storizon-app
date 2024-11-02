@@ -97,7 +97,7 @@ dependencies {
 
     implementation(libs.circleimageview)
     implementation(libs.picasso)
-
+    implementation(libs.zoomimage.view.glide)
 
 }
 

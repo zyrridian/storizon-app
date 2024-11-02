@@ -39,14 +39,10 @@ class StoryViewModel(
     private val _stories = MutableLiveData<Resource<List<StoryEntity>>>()
     val stories: LiveData<Resource<List<StoryEntity>>> = _stories
 
-//    private val _localStories = MutableLiveData<List<StoryEntity>>()
-//    val localStories: LiveData<List<StoryEntity>> = _localStories
-
     init {
         viewModelScope.launch {
             _isLoggedIn.value = preferences.getLoginSession().first()
             _token.value = preferences.getTokenSession().firstOrNull()
-//            loadLocalStories()
         }
     }
 
@@ -109,14 +105,5 @@ class StoryViewModel(
             _isLoggedIn.value = false
         }
     }
-
-//    fun loadLocalStories() {
-//        viewModelScope.launch {
-//            repository.getLocalStories().observeForever { stories ->
-//                _localStories.postValue(stories)
-//            }
-//        }
-//    }
-
 
 }

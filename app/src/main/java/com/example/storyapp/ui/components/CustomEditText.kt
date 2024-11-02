@@ -20,16 +20,12 @@ class CustomEditText @JvmOverloads constructor(
 
     init {
         clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
-//        inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_NORMAL
-        setOnTouchListener(this)
-
-        // Apply custom appearance settings
         textSize = 16f
+        setOnTouchListener(this)
         setTextColor(ContextCompat.getColor(context, R.color.black))
         setBackgroundResource(R.drawable.bg_edit_text)
         setPaddingRelative(50, 40, 50, 40)
 
-        // Monitor text changes to show or hide the clear button
         addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
@@ -43,7 +39,6 @@ class CustomEditText @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-//        hint = "Enter name"
         textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 

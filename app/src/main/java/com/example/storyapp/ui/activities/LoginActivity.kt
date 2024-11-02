@@ -2,6 +2,7 @@ package com.example.storyapp.ui.activities
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.res.Configuration
 import android.os.Bundle
@@ -30,6 +31,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import java.util.Locale
 
+@Suppress("DEPRECATION")
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
@@ -85,6 +87,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("AppBundleLocaleChanges")
     private fun applySavedLanguage() {
         lifecycleScope.launch {
             val savedLanguage =

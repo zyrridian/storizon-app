@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import java.util.Locale
 
+@Suppress("DEPRECATION")
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
@@ -28,7 +29,7 @@ class SettingsActivity : AppCompatActivity() {
         ViewModelFactory.getInstance(this@SettingsActivity)
     }
 
-    val settingsPreferences = SettingsPreferences.getInstance(dataStore)
+    private val settingsPreferences = SettingsPreferences.getInstance(dataStore)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
