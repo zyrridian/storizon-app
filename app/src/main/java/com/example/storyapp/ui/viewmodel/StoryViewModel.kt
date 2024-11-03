@@ -102,6 +102,10 @@ class StoryViewModel(
     fun logout() {
         viewModelScope.launch {
             preferences.saveLoginSession(false)
+            preferences.deleteSessionLogin()
+            preferences.deleteSessionName()
+            preferences.deleteSessionEmail()
+            preferences.deleteSessionToken()
             _isLoggedIn.value = false
         }
     }

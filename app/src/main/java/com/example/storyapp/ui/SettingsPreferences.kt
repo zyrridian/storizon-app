@@ -107,6 +107,30 @@ class SettingsPreferences private constructor(private val dataStore: DataStore<P
 
     // todo: notification
 
+    suspend fun deleteSessionName () {
+        dataStore.edit { preferences ->
+            preferences.remove(nameKey)
+        }
+    }
+
+    suspend fun deleteSessionEmail () {
+        dataStore.edit { preferences ->
+            preferences.remove(emailKey)
+        }
+    }
+
+    suspend fun deleteSessionToken () {
+        dataStore.edit { preferences ->
+            preferences.remove(tokenKey)
+        }
+    }
+
+    suspend fun deleteSessionLogin() {
+        dataStore.edit { preferences ->
+            preferences.remove(loginKey)
+        }
+    }
+
     companion object {
         @Volatile
         private var INSTANCE: SettingsPreferences? = null
