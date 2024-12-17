@@ -1,31 +1,23 @@
 package com.example.storyapp.data.local.room
 
-import androidx.lifecycle.LiveData
+import androidx.paging.PagingSource
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Update
-import com.example.storyapp.data.local.entity.StoryEntity
-import kotlinx.coroutines.flow.Flow
+import com.example.storyapp.data.remote.response.story.StoryResponseItem
 
 @Dao
 interface StoryDao {
-
     @Query("SELECT * FROM stories ORDER BY createdAt DESC")
-    fun getAllStories(): LiveData<List<StoryEntity>>
-
-    @Query("SELECT * FROM stories WHERE isFavorite = 1")
-    fun getFavoriteStory(): Flow<List<StoryEntity>>
+    suspend fun getStoriesForWidget(): List<StoryResponseItem>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertStory(story: List<StoryEntity>)
+    suspend fun insertStory(story: List<StoryResponseItem>)
 
-    @Update
-    fun updateFavoriteStory(story: StoryEntity)
+    @Query("SELECT * FROM stories")
+    fun getAllStories(): PagingSource<Int, StoryResponseItem>
 
-
-    @Query("SELECT * FROM stories ORDER BY createdAt DESC")
-    suspend fun getStoriesForWidget(): List<StoryEntity>
-
+    @Query("DELETE FROM stories")
+    suspend fun deleteAll()
 }

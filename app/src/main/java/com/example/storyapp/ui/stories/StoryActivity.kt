@@ -1,4 +1,4 @@
-package com.example.storyapp.ui.activities
+package com.example.storyapp.ui.stories
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,23 +13,25 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.storyapp.R
-import com.example.storyapp.utils.Resource
+import com.example.storyapp.data.LoadingStateAdapter
 import com.example.storyapp.databinding.ActivityMainBinding
 import com.example.storyapp.ui.SettingsPreferences
-import com.example.storyapp.ui.viewmodel.StoryViewModel
-import com.example.storyapp.ui.viewmodel.ViewModelFactory
-import com.example.storyapp.ui.adapters.StoryAdapter
+import com.example.storyapp.ui.maps.MapsActivity
+import com.example.storyapp.ui.settings.SettingsActivity
+import com.example.storyapp.ui.ViewModelFactory
+import com.example.storyapp.ui.addstory.AddStoryActivity
 import com.example.storyapp.ui.dataStore
 import com.example.storyapp.utils.showToast
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+class StoryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var storyAdapter: StoryAdapter
     private lateinit var drawerLayout: DrawerLayout
-    private val viewModel: StoryViewModel by viewModels { ViewModelFactory.getInstance(this@MainActivity) }
     private var token: String? = null
+    private val viewModel: StoryViewModel by viewModels { ViewModelFactory.getInstance(this@StoryActivity) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,50 +45,55 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
+        lifecycleScope.launch {
+            token = "Bearer ${SettingsPreferences.getInstance(dataStore).getTokenSession().first()}"
+            token?.let { viewModel.setToken(it) }
+        }
+
         drawerLayout = binding.drawerLayout
 
-        setupViewModelObservers()
-        setUpRecyclerView()
+        updateDrawerHeader()
+
         setClickListeners()
         setUpNavigationDrawer()
-        observerStories()
+//        setUpRecyclerView()
+//fetch
+        viewModel.story.observe(this) { result ->
+            storyAdapter.submitData(lifecycle, result)
+        }
 
+        storyAdapter = StoryAdapter()//.apply { setLoadingState(true) }
+        binding.recyclerView.apply {
+            layoutManager = LinearLayoutManager(this@StoryActivity)
+            adapter = storyAdapter.withLoadStateFooter(
+                footer = LoadingStateAdapter {
+                    storyAdapter.retry()
+                }
+            )
+        }
+
+        viewModel.story.observe(this) { result ->
+            storyAdapter.submitData(lifecycle, result)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        token?.let { fetchStories(it) }
-    }
-
-    private fun setupViewModelObservers() {
-        viewModel.token.observe(this) { newToken ->
-            newToken?.let {
-                token = "Bearer $it"
-                fetchStories(token!!)
-            }
-        }
-        updateDrawerHeader()
-    }
-
-    private fun setUpRecyclerView() {
-        storyAdapter = StoryAdapter().apply { setLoadingState(true) }
-        binding.recyclerView.apply {
-            layoutManager = LinearLayoutManager(this@MainActivity)
-            adapter = storyAdapter
-        }
+//        token?.let { fetchStories(it) }
     }
 
     private fun setClickListeners() {
         binding.menuButton.setOnClickListener { drawerLayout.open() }
+        binding.mapsButton.setOnClickListener { startActivity(Intent(this, MapsActivity::class.java)) }
         binding.fab.setOnClickListener { startActivity(Intent(this, AddStoryActivity::class.java)) }
-        binding.swipeRefresh.setOnRefreshListener { token?.let { fetchStories(it) } }
+//        binding.swipeRefresh.setOnRefreshListener { token?.let { fetchStories(it) } }
     }
 
     private fun setUpNavigationDrawer() {
         binding.navigationView.setNavigationItemSelectedListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.nav_settings -> {
-                    startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+                    startActivity(Intent(this@StoryActivity, SettingsActivity::class.java))
                     drawerLayout.close()
                     true
                 }
@@ -101,33 +108,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
-    private fun observerStories() {
-        viewModel.stories.observe(this) { result ->
-            when (result) {
-                is Resource.Loading -> {
-                    showLoading()
-                    storyAdapter.setLoadingState(true)
-                }
-
-                is Resource.Success -> {
-                    hideLoading()
-                    storyAdapter.setLoadingState(false)
-                    storyAdapter.submitList(result.data) {
-                        binding.recyclerView.smoothScrollToPosition(0)
-                    }
-                    binding.swipeRefresh.isRefreshing = false
-                }
-
-                is Resource.Error -> {
-                    hideLoading()
-                    binding.swipeRefresh.isRefreshing = false
-                    showToast(this, getString(R.string.toast_failed_to_load_stories))
-                }
-            }
-        }
-    }
-
 
     private fun updateDrawerHeader() {
         val headerView = binding.navigationView.getHeaderView(0)
@@ -149,10 +129,10 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun fetchStories(token: String) {
-        viewModel.fetchAllStories(token)
-        binding.swipeRefresh.isRefreshing = false
-    }
+//    private fun fetchStories(token: String) {
+//        viewModel.story.observe(t)
+//        binding.swipeRefresh.isRefreshing = false
+//    }
 
     private fun showLoading() {
         binding.progressBar.visibility = View.VISIBLE

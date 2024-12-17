@@ -7,14 +7,14 @@ import android.widget.RemoteViews
 import android.widget.RemoteViewsService
 import com.example.storyapp.R
 import com.example.storyapp.data.StoryRepository
-import com.example.storyapp.data.local.entity.StoryEntity
+import com.example.storyapp.data.remote.response.story.StoryResponseItem
 import com.example.storyapp.di.Injection
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.runBlocking
 
 class StackRemoteViewsFactory(private val mContext: Context) : RemoteViewsService.RemoteViewsFactory {
 
-    private val storyList = mutableListOf<StoryEntity>()
+    private val storyList = mutableListOf<StoryResponseItem>()
     private val storyRepository: StoryRepository = Injection.provideRepository(mContext)
 
     override fun onCreate() {

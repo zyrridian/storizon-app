@@ -1,4 +1,4 @@
-package com.example.storyapp.ui.activities
+package com.example.storyapp.ui.auth
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -24,8 +24,8 @@ import com.example.storyapp.utils.Resource
 import com.example.storyapp.databinding.ActivityLoginBinding
 import com.example.storyapp.ui.SettingsPreferences
 import com.example.storyapp.ui.dataStore
-import com.example.storyapp.ui.viewmodel.StoryViewModel
-import com.example.storyapp.ui.viewmodel.ViewModelFactory
+import com.example.storyapp.ui.stories.StoryActivity
+import com.example.storyapp.ui.ViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
@@ -35,7 +35,7 @@ import java.util.Locale
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private val viewModel: StoryViewModel by viewModels {
+    private val viewModel: AuthViewModel by viewModels {
         ViewModelFactory.getInstance(this@LoginActivity)
     }
 
@@ -66,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun navigateToMain() {
-        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+        startActivity(Intent(this@LoginActivity, StoryActivity::class.java))
         finish()
     }
 

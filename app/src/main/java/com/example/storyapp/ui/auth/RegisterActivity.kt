@@ -1,4 +1,4 @@
-package com.example.storyapp.ui.activities
+package com.example.storyapp.ui.auth
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
@@ -14,14 +14,14 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.storyapp.R
 import com.example.storyapp.utils.Resource
 import com.example.storyapp.databinding.ActivityRegisterBinding
-import com.example.storyapp.ui.viewmodel.StoryViewModel
-import com.example.storyapp.ui.viewmodel.ViewModelFactory
+import com.example.storyapp.ui.stories.StoryViewModel
+import com.example.storyapp.ui.ViewModelFactory
 import com.example.storyapp.utils.showToast
 
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private val viewModel: StoryViewModel by viewModels {
+    private val viewModel: AuthViewModel by viewModels {
         ViewModelFactory.getInstance(this@RegisterActivity)
     }
 
@@ -128,8 +128,6 @@ class RegisterActivity : AppCompatActivity() {
             }
         }
     }
-
-
 
     private fun showLoading() {
         binding.progressBar.visibility = View.VISIBLE

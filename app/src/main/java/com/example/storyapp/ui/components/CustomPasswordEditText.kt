@@ -21,6 +21,8 @@ class CustomPasswordEditText @JvmOverloads constructor(
 
     init {
 
+        hint = resources.getString(R.string.hint_password_edit_text)
+        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
         clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
         inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD
         textSize = 16f
@@ -45,8 +47,6 @@ class CustomPasswordEditText @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = resources.getString(R.string.hint_password_edit_text)
-        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
     private fun showClearButton() {

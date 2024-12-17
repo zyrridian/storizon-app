@@ -5,7 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
-@Entity(tableName = "stories")
+//@Entity(tableName = "stories")
 @Parcelize
 data class StoryEntity(
     @PrimaryKey val id: String,
@@ -13,7 +13,7 @@ data class StoryEntity(
     val description: String,
     val photoUrl: String,
     val createdAt: String,
-    val lat: Double,
-    val lon: Double,
+    val lat: Double?,
+    val lon: Double?,
     var isFavorite: Boolean = false
 ) : Parcelable

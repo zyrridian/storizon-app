@@ -1,0 +1,9 @@
+{
+  "error": false,
+  "message": "success",
+  "loginResult": {
+    "userId": "user-PUsRCqwHpVW3o8pe",
+    "name": "Muhammad Ibnuz",
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLVBVc1JDcXdIcFZXM284cGUiLCJpYXQiOjE3MzIyNjg2NDd9.umZeYfld_B1PJWEhauzMxTGIRvBzoSu0R5a4Bx85Uj0"
+  }
+}

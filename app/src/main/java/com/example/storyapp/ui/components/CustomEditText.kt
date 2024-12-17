@@ -19,6 +19,7 @@ class CustomEditText @JvmOverloads constructor(
     private var clearButtonImage: Drawable
 
     init {
+        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
         clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
         textSize = 16f
         setOnTouchListener(this)
@@ -39,7 +40,6 @@ class CustomEditText @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
     private fun showClearButton() {

@@ -1,4 +1,4 @@
-package com.example.storyapp.ui.activities
+package com.example.storyapp.ui.settings
 
 import android.content.Intent
 import android.content.res.Configuration
@@ -15,8 +15,10 @@ import com.example.storyapp.R
 import com.example.storyapp.databinding.ActivitySettingsBinding
 import com.example.storyapp.ui.SettingsPreferences
 import com.example.storyapp.ui.dataStore
-import com.example.storyapp.ui.viewmodel.StoryViewModel
-import com.example.storyapp.ui.viewmodel.ViewModelFactory
+import com.example.storyapp.ui.stories.StoryActivity
+import com.example.storyapp.ui.ViewModelFactory
+import com.example.storyapp.ui.auth.AuthViewModel
+import com.example.storyapp.ui.auth.LoginActivity
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -25,7 +27,7 @@ import java.util.Locale
 class SettingsActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySettingsBinding
-    private val viewModel: StoryViewModel by viewModels {
+    private val viewModel: AuthViewModel by viewModels {
         ViewModelFactory.getInstance(this@SettingsActivity)
     }
 
@@ -125,7 +127,7 @@ class SettingsActivity : AppCompatActivity() {
     }
 
     private fun restartApp() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, StoryActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
     }
@@ -136,8 +138,9 @@ class SettingsActivity : AppCompatActivity() {
             .setMessage(getString(R.string.are_you_sure_you_want_to_log_out))
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 viewModel.logout()
-                startActivity(Intent(this@SettingsActivity, LoginActivity::class.java))
-                finish()
+                val intent = Intent(this, LoginActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                startActivity(intent)
             }
             .setNegativeButton(getString(R.string.no)) { dialog, _ ->
                 dialog.dismiss()

@@ -2,7 +2,7 @@ package com.example.storyapp.data.remote.network
 
 import com.example.storyapp.data.remote.request.auth.LoginRequest
 import com.example.storyapp.data.remote.request.auth.RegisterRequest
-import com.example.storyapp.data.remote.response.story.ListStoryResponse
+import com.example.storyapp.data.remote.response.story.StoryResponse
 import com.example.storyapp.data.remote.response.Response
 import com.example.storyapp.data.remote.response.auth.LoginResponse
 import com.example.storyapp.data.remote.response.auth.RegisterResponse
@@ -33,6 +33,8 @@ interface ApiService {
     suspend fun addNewStory(
         @Header("Authorization") token: String,
         @Part("description") description: RequestBody,
+        @Part("lat") lat: RequestBody? = null,
+        @Part("lon") lon: RequestBody? = null,
         @Part photo: MultipartBody.Part
     ): Response
 
@@ -42,6 +44,14 @@ interface ApiService {
         @Query("page") page: Int? = null,
         @Query("size") size: Int? = null,
         @Query("location") location: Int? = null // Default to 0 if not provided
-    ): ListStoryResponse
+    ): StoryResponse
+
+    @GET("stories")
+    suspend fun getAllStoriesWithLocation(
+        @Header("Authorization") token: String,
+        @Query("page") page: Int = 1,
+        @Query("size") size: Int = 100,
+        @Query("location") location: Int = 1
+    ): StoryResponse
 
 }

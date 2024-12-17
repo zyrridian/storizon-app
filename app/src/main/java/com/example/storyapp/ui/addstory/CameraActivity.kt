@@ -1,4 +1,4 @@
-package com.example.storyapp.ui.activities
+package com.example.storyapp.ui.addstory
 
 import android.Manifest
 import android.content.Intent

@@ -24,6 +24,8 @@ class CustomEmailEditText @JvmOverloads constructor(
 
     init {
 
+        hint = resources.getString(R.string.hint_email_edit_text)
+        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
         clearButtonImage = ContextCompat.getDrawable(context, R.drawable.ic_clear) as Drawable
         inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
         setOnTouchListener(this)
@@ -50,8 +52,6 @@ class CustomEmailEditText @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        hint = resources.getString(R.string.hint_email_edit_text)
-        textAlignment = View.TEXT_ALIGNMENT_VIEW_START
     }
 
     private fun showClearButton() {

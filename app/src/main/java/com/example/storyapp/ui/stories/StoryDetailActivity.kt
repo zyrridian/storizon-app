@@ -1,4 +1,4 @@
-package com.example.storyapp.ui.activities
+package com.example.storyapp.ui.stories
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -7,13 +7,14 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.example.storyapp.R
-import com.example.storyapp.data.local.entity.StoryEntity
+import com.example.storyapp.data.remote.response.story.StoryResponseItem
+//import com.example.storyapp.data.local.entity.StoryEntity
 import com.example.storyapp.databinding.ActivityDetailBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
 
 @Suppress("DEPRECATION")
-class DetailActivity : AppCompatActivity() {
+class StoryDetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
 
@@ -35,12 +36,12 @@ class DetailActivity : AppCompatActivity() {
     }
 
     private fun setupStoryData() {
-        intent.getParcelableExtra<StoryEntity>(EXTRA_STORY)?.let { story ->
+        intent.getParcelableExtra<StoryResponseItem>(EXTRA_STORY)?.let { story ->
             binding.apply {
                 nameTextView.text = story.name
                 descriptionTextView.text = story.description
                 createAtTextView.text = formatDate(story.createdAt)
-                Glide.with(this@DetailActivity).load(story.photoUrl).into(imageView)
+                Glide.with(this@StoryDetailActivity).load(story.photoUrl).into(imageView)
             }
         }
     }

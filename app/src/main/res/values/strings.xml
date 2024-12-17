@@ -74,5 +74,11 @@
     <string name="todo">TODO</string>
     <string name="appwidget_text">STORY BANNER</string>
     <string name="empty_text">NO DATA</string>
+    <string name="include_location">Include Location?</string>
+    <string name="location_permission_is_required_to_provide_better_service">Location permission is required to provide better service.</string>
+    <string name="unable_to_fetch_location">Unable to fetch location.</string>
+    <string name="location_fetch_failed">Location fetch failed.</string>
+    <string name="location_permission_not_granted">Location permission not granted.</string>
+    <string name="retry">Retry</string>
 
 </resources>

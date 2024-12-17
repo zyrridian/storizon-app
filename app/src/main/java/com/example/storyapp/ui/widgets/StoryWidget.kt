@@ -10,9 +10,10 @@ import android.content.Intent
 import android.os.Build
 import android.widget.RemoteViews
 import com.example.storyapp.R
-import com.example.storyapp.data.local.entity.StoryEntity
-import com.example.storyapp.ui.activities.DetailActivity
-import com.example.storyapp.ui.activities.DetailActivity.Companion.EXTRA_STORY
+import com.example.storyapp.data.remote.response.story.StoryResponseItem
+//import com.example.storyapp.data.local.entity.StoryEntity
+import com.example.storyapp.ui.stories.StoryDetailActivity
+import com.example.storyapp.ui.stories.StoryDetailActivity.Companion.EXTRA_STORY
 
 /**
  * Implementation of App Widget functionality.
@@ -40,9 +41,9 @@ class StoryWidget : AppWidgetProvider() {
         super.onReceive(context, intent)
         when (intent.action) {
             CLICK_ACTION -> {
-                val story = intent.getParcelableExtra<StoryEntity>(EXTRA_STORY_ENTITY)
+                val story = intent.getParcelableExtra<StoryResponseItem>(EXTRA_STORY_ENTITY)
                 if (story != null) {
-                    val detailIntent = Intent(context, DetailActivity::class.java).apply {
+                    val detailIntent = Intent(context, StoryDetailActivity::class.java).apply {
                         putExtra(EXTRA_STORY, story)
                         flags = Intent.FLAG_ACTIVITY_NEW_TASK
                     }

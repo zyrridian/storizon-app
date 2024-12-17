@@ -2,8 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.google.devtools.ksp)
+    alias(libs.plugins.google.android.libraries.mapsplatform.secrets.gradle.plugin)
     id("kotlin-parcelize")
-
 }
 
 android {
@@ -38,6 +38,9 @@ android {
     }
     buildFeatures {
         viewBinding = true
+    }
+    testOptions {
+        animationsDisabled = true
     }
 }
 
@@ -99,5 +102,33 @@ dependencies {
     implementation(libs.picasso)
     implementation(libs.zoomimage.view.glide)
 
+    implementation(libs.play.services.maps)
+    implementation(libs.play.services.location)
+
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.room.paging)
+
+//    androidTestImplementation(libs.androidx.core.testing) //InstantTaskExecutorRule
+//    androidTestImplementation(libs.kotlinx.coroutines.test) //TestDispatcher
+
+    testImplementation(libs.androidx.core.testing) // InstantTaskExecutorRule
+    testImplementation(libs.kotlinx.coroutines.test) //TestDispatcher
+    testImplementation(libs.mockito.core)
+    testImplementation(libs.mockito.inline)
+
+    //special instrumentation testing
+    androidTestImplementation(libs.androidx.core.testing) // InstantTaskExecutorRule
+    androidTestImplementation(libs.kotlinx.coroutines.test) //TestDispatcher
+
+    //TestCoroutineDispatcher
+//    debugImplementation(libs.androidx.fragment.testing) //launchFragmentInContainer
+
+
+    //mock web server
+    androidTestImplementation(libs.mockwebserver)
+    androidTestImplementation(libs.okhttp3.okhttp.tls)
+
+    implementation(libs.androidx.espresso.idling.resource)
+    androidTestImplementation(libs.espresso.intents) //IntentsTestRule
 }
 

@@ -1,17 +1,17 @@
-package com.example.storyapp.ui.viewmodel
+package com.example.storyapp.ui.auth
 
-import android.content.Context
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
 import com.example.storyapp.utils.Resource
 import com.example.storyapp.data.StoryRepository
-import com.example.storyapp.data.local.entity.StoryEntity
 import com.example.storyapp.data.remote.response.auth.LoginResponse
 import com.example.storyapp.data.remote.response.auth.RegisterResponse
+import com.example.storyapp.data.remote.response.story.StoryResponseItem
 import com.example.storyapp.ui.SettingsPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 
-class StoryViewModel(
+class AuthViewModel(
     private val repository: StoryRepository,
     private val preferences: SettingsPreferences
 ) : ViewModel() {
@@ -36,34 +36,55 @@ class StoryViewModel(
     private val _token = MutableLiveData<String?>()
     val token: LiveData<String?> = _token
 
-    private val _stories = MutableLiveData<Resource<List<StoryEntity>>>()
-    val stories: LiveData<Resource<List<StoryEntity>>> = _stories
+//    private val _stories = MutableLiveData<Resource<List<StoryEntity>>>()
+//    val stories: LiveData<Resource<List<StoryEntity>>> = _stories
+
+//    val story: LiveData<PagingData<StoryResponse>> = repository.getAllStories(preferences.getTokenSession()).cachedIn(viewModelScope)
+
+
+    //    val story: LiveData<PagingData<StoryResponseItem>> = MutableLiveData()
+//    val story: LiveData<PagingData<StoryResponseItem>> =
+//        repository.getStories().cachedIn(viewModelScope)
+
+
+//    private val _story = MutableLiveData<PagingData<StoryResponse>>()
+//    val story: LiveData<PagingData<StoryResponse>> = _story
 
     init {
         viewModelScope.launch {
             _isLoggedIn.value = preferences.getLoginSession().first()
             _token.value = preferences.getTokenSession().firstOrNull()
         }
+
+//        viewModelScope.launch {
+//            // Collect token from Flow
+//            val token = preferences.getTokenSession().firstOrNull()
+//            if (token != null) {
+//                // Initialize story after token is fetched
+//                (story as MutableLiveData).postValue(
+//                    repository.getAllStories(token).cachedIn(viewModelScope).asFlow().firstOrNull()
+//                )
+//            }
+//        }
+
     }
+
+//    fun getStory(token: String) {
+//        viewModelScope.launch {
+//            repository.getAllStories(token).cachedIn(viewModelScope).collect { pagingData ->
+//                _story.postValue(pagingData)
+//            }
+//        }
+//    }
 
     // Get stories
-    fun fetchAllStories(token: String) {
-        viewModelScope.launch {
-            repository.getAllStories(token).observeForever { result ->
-                _stories.postValue(result)
-            }
-        }
-    }
-
-    // Add story
-    fun addNewStory(
-        uri: Uri,
-        description: String,
-        token: String,
-        context: Context
-    ): LiveData<Resource<String>> {
-        return repository.addNewStory(uri, description, token, context)
-    }
+//    fun fetchAllStories(token: String) {
+//        viewModelScope.launch {
+//            repository.getAllStories(token).cachedIn(viewModelScope).observeForever { result ->
+//                _stories.postValue(result)
+//            }
+//        }
+//    }
 
     // Theme functions
     fun getThemeSettings() = preferences.getThemeSetting().asLiveData()

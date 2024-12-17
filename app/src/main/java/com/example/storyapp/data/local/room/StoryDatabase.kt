@@ -4,21 +4,35 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.example.storyapp.data.local.entity.StoryEntity
+import com.example.storyapp.data.local.RemoteKeys
+import com.example.storyapp.data.local.RemoteKeysDao
+//import com.example.storyapp.data.local.entity.StoryEntity
+//import com.example.storyapp.data.remote.response.story.StoryResponse
+import com.example.storyapp.data.remote.response.story.StoryResponseItem
 
-@Database(entities = [StoryEntity::class], version = 2, exportSchema = false)
+@Database(
+    entities = [
+        StoryResponseItem::class,
+        RemoteKeys::class
+    ],
+    version = 5,
+    exportSchema = false
+)
 abstract class StoryDatabase : RoomDatabase() {
     abstract fun storyDao(): StoryDao
+    abstract fun remoteKeysDao(): RemoteKeysDao
 
     companion object {
         @Volatile
-        private var instance: StoryDatabase? = null
-        fun getInstance(context: Context): StoryDatabase =
-            instance ?: synchronized(this) {
-                instance ?: Room.databaseBuilder(
+        private var INSTANCE: StoryDatabase? = null
+        @JvmStatic
+        fun getInstance(context: Context): StoryDatabase {
+            return INSTANCE ?: synchronized(this) {
+                INSTANCE ?: Room.databaseBuilder(
                     context.applicationContext,
                     StoryDatabase::class.java, "Story.db"
-                ).fallbackToDestructiveMigration().build()
+                ).fallbackToDestructiveMigration().build().also { INSTANCE = it }
             }
+        }
     }
 }
