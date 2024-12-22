@@ -1,1 +1,1 @@
-![Pixel 8 Pro](https://github.com/user-attachments/assets/4cd75b53-bbad-4c19-a0d0-a8566f028715)
+![Pixel 8 Pro (1)](https://github.com/user-attachments/assets/d630f264-8144-4279-9c85-2e68d1ffbea7)
