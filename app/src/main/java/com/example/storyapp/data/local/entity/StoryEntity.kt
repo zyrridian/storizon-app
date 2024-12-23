@@ -1,11 +1,10 @@
 package com.example.storyapp.data.local.entity
 
 import android.os.Parcelable
-import androidx.room.Entity
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
-//@Entity(tableName = "stories")
+// @Entity(tableName = "stories")
 @Parcelize
 data class StoryEntity(
     @PrimaryKey val id: String,

@@ -19,6 +19,7 @@ import com.example.storyapp.ui.stories.StoryActivity
 import com.example.storyapp.ui.ViewModelFactory
 import com.example.storyapp.ui.auth.AuthViewModel
 import com.example.storyapp.ui.auth.LoginActivity
+import com.example.storyapp.utils.StreakManager
 import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.launch
 import java.util.Locale
@@ -138,6 +139,7 @@ class SettingsActivity : AppCompatActivity() {
             .setMessage(getString(R.string.are_you_sure_you_want_to_log_out))
             .setPositiveButton(getString(R.string.yes)) { _, _ ->
                 viewModel.logout()
+                StreakManager.resetStreak(this)
                 val intent = Intent(this, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 startActivity(intent)

@@ -40,9 +40,9 @@ data class StoryResponseItem(
     val createdAt: String,
 
     @field:SerializedName("lat")
-    val lat: Double,
+    val lat: Double? = null,
 
     @field:SerializedName("lon")
-    val lon: Double
+    val lon: Double? = null
 
 ) : Parcelable

@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">Story App</string>
+    <string name="app_name">Storizon</string>
     <string name="add_widget">Add widget</string>
     <string name="app_widget_description">This is an app widget description</string>
 
@@ -80,5 +80,19 @@
     <string name="location_fetch_failed">Location fetch failed.</string>
     <string name="location_permission_not_granted">Location permission not granted.</string>
     <string name="retry">Retry</string>
+    <string name="hello">Hello, %1$s</string>
+    <string name="no_location">No location</string>
+    <string name="enable_location">Enable location</string>
+    <string name="hello_guest">Hello, Guest</string>
+    <string name="welcome_to_storizon">Welcome to Storizon</string>
+    <string name="image">image</string>
+    <string name="words_written">Words Written</string>
+    <string name="daily_streak">Daily Streak</string>
+    <string name="discover_stories">Discover Stories</string>
+    <string name="explore_stories_from_different_locations_on_an_interactive_map">Explore stories from different locations on an interactive map</string>
+    <string name="view_map">View Map</string>
+    <string name="latest_stories">Latest Stories</string>
+    <string name="view_all">view all</string>
+    <string name="stories">Stories</string>
 
 </resources>

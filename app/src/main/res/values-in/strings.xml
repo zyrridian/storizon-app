@@ -75,4 +75,25 @@
     <string name="appwidget_text">STORY BANNER</string>
     <string name="empty_text">NO DATA</string>
 
+    <string name="include_location">Sertakan Lokasi?</string>
+    <string name="location_permission_is_required_to_provide_better_service">Izin lokasi diperlukan untuk memberikan layanan yang lebih baik.</string>
+    <string name="unable_to_fetch_location">Tidak dapat mengambil lokasi.</string>
+    <string name="location_fetch_failed">Gagal mengambil lokasi.</string>
+    <string name="location_permission_not_granted">Izin lokasi tidak diberikan.</string>
+    <string name="retry">Coba Lagi</string>
+    <string name="hello">Halo, %1$s</string>
+    <string name="no_location">Tidak ada lokasi</string>
+    <string name="enable_location">Aktifkan lokasi</string>
+    <string name="hello_guest">Halo, Tamu</string>
+    <string name="welcome_to_storizon">Selamat datang di Storizon</string>
+    <string name="image">gambar</string>
+    <string name="words_written">Kata Ditulis</string>
+    <string name="daily_streak">Rekor Harian</string>
+    <string name="discover_stories">Temukan Cerita</string>
+    <string name="explore_stories_from_different_locations_on_an_interactive_map">Jelajahi cerita dari lokasi berbeda pada peta interaktif</string>
+    <string name="view_map">Lihat Peta</string>
+    <string name="latest_stories">Cerita Terbaru</string>
+    <string name="view_all">lihat semua</string>
+    <string name="stories">Cerita</string>
+
 </resources>

@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import androidx.datastore.dataStore
 import androidx.lifecycle.lifecycleScope
 import com.example.storyapp.R
 import com.example.storyapp.databinding.ActivityMapsBinding
@@ -25,8 +24,6 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptor
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MapStyleOptions
@@ -135,17 +132,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             when (result) {
                 is Resource.Loading -> Log.d("MapsActivity", "Loading stories...")
                 is Resource.Success -> {
+                    Log.d("MapsActivity", "Fetched ${result.data.size} stories")
                     result.data.forEach { data ->
-                        Log.d("MapsActivity", "Fetched ${result.data.size} stories")
-                        val latLng = LatLng(data.lat, data.lon)
-                        latLng.let { test ->
-                            val markerOptions = MarkerOptions()
-                                .position(test)
-                                .title(data.name)
-                                .snippet(data.description)
-                            googleMap.addMarker(markerOptions)
+                        val latLng = if (data.lat != null && data.lon != null) LatLng(data.lat, data.lon) else null
+                        latLng?.let {
+                            googleMap.addMarker(
+                                MarkerOptions()
+                                    .position(it)
+                                    .title(data.name)
+                                    .snippet(data.description)
+                            )
+                            boundsBuilder.include(it)
                         }
-                        boundsBuilder.include(latLng)
                     }
                 }
 

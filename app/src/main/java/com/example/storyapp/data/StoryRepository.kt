@@ -5,6 +5,7 @@ import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
+import androidx.lifecycle.map
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
@@ -21,6 +22,7 @@ import com.example.storyapp.data.remote.response.auth.LoginResponse
 import com.example.storyapp.data.remote.response.auth.RegisterResponse
 import com.example.storyapp.data.remote.response.story.StoryResponseItem
 import com.example.storyapp.utils.Resource
+import com.example.storyapp.utils.getErrorMessage
 import com.example.storyapp.utils.reduceFileImage
 import com.example.storyapp.utils.uriToFile
 import com.example.storyapp.utils.wrapEspressoIdlingResource
@@ -134,6 +136,44 @@ class StoryRepository(
             }
         ).liveData
     }
+
+    fun getHomeStories(token: String, size: Int): LiveData<Resource<List<StoryResponseItem>>> =
+        liveData {
+            emit(Resource.Loading)
+            try {
+                // Fetch data from the API
+                val response = apiService.getAllStories(token = token, size = size)
+
+                // Parse the API response
+                val stories = response.listStory
+
+                if (stories.isNullOrEmpty()) {
+                    emit(Resource.Error("No stories found in the API response.")) // Emit error if empty
+                } else {
+                    // Map the API response to database entities
+                    val storiesEntities = stories.map { it }
+                    storyDao.insertStory(storiesEntities) // Save to local database
+                    emit(Resource.Success(stories)) // Emit success state with the API data
+                }
+            } catch (e: Exception) {
+                // Handle errors and emit error state
+                val errorMessage = getErrorMessage(e)
+                Log.e("StoryRepository", "Error fetching stories: $errorMessage", e)
+                emit(Resource.Error(errorMessage))
+            }
+
+            // Fetch data from the local database (Room)
+            val localData = storyDao.getHomeStories(size).map { storyList ->
+                if (storyList.isNotEmpty()) {
+                    Resource.Success(storyList) // Emit success state with local data
+                } else {
+                    Resource.Error("No local data available.") // Emit error if database is empty
+                }
+            }
+
+            emitSource(localData) // Emit the local data as a fallback
+
+        }
 
     fun getAllStoriesWithLocation(token: String): LiveData<Resource<List<StoryResponseItem>>> =
         liveData {

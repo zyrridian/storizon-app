@@ -16,7 +16,7 @@
     <style name="Theme.App.Starting" parent="Theme.SplashScreen">
         <item name="windowSplashScreenBackground">@color/white</item>
         <item name="postSplashScreenTheme">@style/Base.Theme.StoryApp</item>
-        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_logo</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_storizon</item>
     </style>
 
     <style name="Theme.StoryApp.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
@@ -27,6 +27,10 @@
         It needs to be 8dp or less than the value of appWidgetRadius
         -->
         <item name="appWidgetInnerRadius">8dp</item>
+    </style>
+    <style name="ShapeAppearanceOverlayCornerRadius16dp">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">16dp</item>
     </style>
 
     <style name="Theme.StoryApp.AppWidgetContainer" parent="Theme.StoryApp.AppWidgetContainerParent">

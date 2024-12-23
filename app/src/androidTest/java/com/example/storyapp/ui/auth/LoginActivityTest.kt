@@ -135,15 +135,12 @@ class LoginActivityTest {
         onView(withId(R.id.login_button)).perform(click())
 
         // Open navigation drawer and go to settings
-        onView(withId(R.id.menu_button)).check(matches(isDisplayed()))
-        onView(withId(R.id.menu_button)).perform(click())
-        onView(withId(R.id.drawer_layout)).check(matches(isDisplayed()))
-        onView(withId(R.id.nav_settings)).perform(click())
+        onView(withId(R.id.settings_button)).check(matches(isDisplayed()))
+        onView(withId(R.id.settings_button)).perform(click())
 
         // Click logout option
         onView(withId(R.id.logout_layout)).check(matches(isDisplayed()))
         onView(withId(R.id.logout_layout)).perform(click())
-
 
         // Handle dialog: Check if dialog title and message are displayed
         onView(withText(R.string.logout)).check(matches(isDisplayed()))

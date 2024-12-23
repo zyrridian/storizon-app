@@ -74,5 +74,25 @@
     <string name="todo">TODO</string>
     <string name="appwidget_text">STORY BANNER</string>
     <string name="empty_text">NO DATA</string>
+    <string name="include_location">Включить местоположение?</string>
+    <string name="location_permission_is_required_to_provide_better_service">Разрешение на доступ к местоположению необходимо для предоставления лучшего сервиса.</string>
+    <string name="unable_to_fetch_location">Не удалось определить местоположение.</string>
+    <string name="location_fetch_failed">Не удалось получить местоположение.</string>
+    <string name="location_permission_not_granted">Доступ к местоположению не предоставлен.</string>
+    <string name="retry">Повторить</string>
+    <string name="hello">Привет, %1$s</string>
+    <string name="no_location">Нет местоположения</string>
+    <string name="enable_location">Включить местоположение</string>
+    <string name="hello_guest">Привет, Гость</string>
+    <string name="welcome_to_storizon">Добро пожаловать в Storizon</string>
+    <string name="image">изображение</string>
+    <string name="words_written">Написанные слова</string>
+    <string name="daily_streak">Ежедневная серия</string>
+    <string name="discover_stories">Откройте для себя истории</string>
+    <string name="explore_stories_from_different_locations_on_an_interactive_map">Исследуйте истории из разных мест на интерактивной карте</string>
+    <string name="view_map">Посмотреть карту</string>
+    <string name="latest_stories">Последние истории</string>
+    <string name="view_all">посмотреть все</string>
+    <string name="stories">Истории</string>
 
 </resources>

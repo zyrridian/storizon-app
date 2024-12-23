@@ -9,18 +9,14 @@ import androidx.lifecycle.switchMap
 import androidx.paging.cachedIn
 import com.example.storyapp.data.StoryRepository
 import com.example.storyapp.data.remote.response.story.StoryResponseItem
-import com.example.storyapp.ui.SettingsPreferences
+import com.example.storyapp.utils.Resource
 
 class StoryViewModel(
-    val repository: StoryRepository
-//    private val settingsPreferences: SettingsPreferences
+    private val repository: StoryRepository
 ) : ViewModel() {
 
-
     private val _token = MutableLiveData<String>()
-
-//    val story: LiveData<PagingData<StoryResponseItem>> =
-//        repository.getStories("Bearer $token").cachedIn(viewModelScope)
+    private val _size = MutableLiveData<Int>()
 
     val story: LiveData<PagingData<StoryResponseItem>> = _token.switchMap { token ->
         repository.getStories(token).cachedIn(viewModelScope)
@@ -28,6 +24,24 @@ class StoryViewModel(
 
     fun setToken(token: String) {
         _token.value = token
+    }
+
+    // LiveData to observe stories
+    val homeStories: LiveData<Resource<List<StoryResponseItem>>> = _token.switchMap { token ->
+        _size.switchMap { size ->
+            repository.getHomeStories(token, size)
+        }
+    }
+
+    // Set token and size to trigger the fetching of stories
+    fun fetchStories(token: String) {
+        _token.value = token
+    }
+
+    // Set token and size to trigger the fetching of stories
+    fun fetchHomeStories(token: String, size: Int) {
+        _token.value = token
+        _size.value = size
     }
 
 }

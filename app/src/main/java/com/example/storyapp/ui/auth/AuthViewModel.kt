@@ -5,13 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.example.storyapp.utils.Resource
 import com.example.storyapp.data.StoryRepository
 import com.example.storyapp.data.remote.response.auth.LoginResponse
 import com.example.storyapp.data.remote.response.auth.RegisterResponse
-import com.example.storyapp.data.remote.response.story.StoryResponseItem
 import com.example.storyapp.ui.SettingsPreferences
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -36,55 +33,15 @@ class AuthViewModel(
     private val _token = MutableLiveData<String?>()
     val token: LiveData<String?> = _token
 
-//    private val _stories = MutableLiveData<Resource<List<StoryEntity>>>()
-//    val stories: LiveData<Resource<List<StoryEntity>>> = _stories
-
-//    val story: LiveData<PagingData<StoryResponse>> = repository.getAllStories(preferences.getTokenSession()).cachedIn(viewModelScope)
-
-
-    //    val story: LiveData<PagingData<StoryResponseItem>> = MutableLiveData()
-//    val story: LiveData<PagingData<StoryResponseItem>> =
-//        repository.getStories().cachedIn(viewModelScope)
-
-
-//    private val _story = MutableLiveData<PagingData<StoryResponse>>()
-//    val story: LiveData<PagingData<StoryResponse>> = _story
-
     init {
         viewModelScope.launch {
-            _isLoggedIn.value = preferences.getLoginSession().first()
+            val loginState = preferences.getLoginSession().first()
+            _isLoggedIn.value = loginState
+            println("Login State: $loginState") // Debugging
             _token.value = preferences.getTokenSession().firstOrNull()
         }
 
-//        viewModelScope.launch {
-//            // Collect token from Flow
-//            val token = preferences.getTokenSession().firstOrNull()
-//            if (token != null) {
-//                // Initialize story after token is fetched
-//                (story as MutableLiveData).postValue(
-//                    repository.getAllStories(token).cachedIn(viewModelScope).asFlow().firstOrNull()
-//                )
-//            }
-//        }
-
     }
-
-//    fun getStory(token: String) {
-//        viewModelScope.launch {
-//            repository.getAllStories(token).cachedIn(viewModelScope).collect { pagingData ->
-//                _story.postValue(pagingData)
-//            }
-//        }
-//    }
-
-    // Get stories
-//    fun fetchAllStories(token: String) {
-//        viewModelScope.launch {
-//            repository.getAllStories(token).cachedIn(viewModelScope).observeForever { result ->
-//                _stories.postValue(result)
-//            }
-//        }
-//    }
 
     // Theme functions
     fun getThemeSettings() = preferences.getThemeSetting().asLiveData()

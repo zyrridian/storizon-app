@@ -9,7 +9,8 @@ class ApiConfig {
     companion object {
         var BASE_URL = "https://story-api.dicoding.dev/v1/"
         fun getApiService(): ApiService {
-            val loggingInterceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+            val loggingInterceptor =
+                HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
             val client = OkHttpClient.Builder()
                 .addInterceptor(loggingInterceptor)
                 .build()

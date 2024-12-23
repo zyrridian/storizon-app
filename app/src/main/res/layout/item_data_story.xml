@@ -1,62 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardBackgroundColor="@color/card"
-    app:cardCornerRadius="8dp"
-    app:strokeColor="@color/light_gray">
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true"
+    android:paddingHorizontal="16dp"
+    android:paddingTop="16dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/image_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlayCornerRadius16dp"
+        tools:src="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/author_text_view"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_marginStart="16dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_light"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/image_view"
+        app:layout_constraintTop_toTopOf="@id/image_view"
+        tools:text="by Muhammad Ibnu" />
 
-        <ImageView
-            android:id="@+id/image_view"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:contentDescription="@string/content_description_story_image"
-            android:scaleType="centerCrop"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:srcCompat="@drawable/ic_launcher_background" />
+    <TextView
+        android:id="@+id/title_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_semibold"
+        android:includeFontPadding="false"
+        android:maxLines="2"
+        android:minLines="2"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/author_text_view"
+        app:layout_constraintTop_toBottomOf="@id/author_text_view"
+        tools:text="Today is saturday and tomorrow will be sunday not monday but obiously tomorrow of monday" />
 
-        <TextView
-            android:id="@+id/title_text_view"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="4dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:minLines="1"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/image_view"
-            app:layout_constraintTop_toTopOf="@id/image_view"
-            tools:text="Muhammad Ibnu" />
+    <ImageView
+        android:id="@+id/time_icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginTop="16dp"
+        android:contentDescription="@string/image"
+        android:src="@drawable/ic_outline_schedule_24"
+        app:layout_constraintStart_toStartOf="@id/title_text_view"
+        app:layout_constraintTop_toBottomOf="@id/title_text_view"
+        app:tint="@color/blue" />
 
-        <TextView
-            android:id="@+id/description_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:ellipsize="end"
-            android:maxLines="3"
-            android:minLines="3"
-            android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/image_view"
-            app:layout_constraintTop_toBottomOf="@id/title_text_view"
-            tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus, nibh non dictum tempus, ligula nisl sagittis ipsum, eget efficitur mauris nisi at sapien. Nunc sit amet scelerisque diam, ut auctor mi. Ut consequat risus et cursus ultricies. Fusce volutpat purus sit amet metus auctor tristique. Praesent congue diam eget quam ullamcorper, sed convallis tortor semper. Nam fermentum imperdiet nunc et iaculis. Donec leo risus, molestie at gravida eu, ultricies sit amet odio. Nullam faucibus ornare mattis. Aliquam vitae posuere ex. Mauris lobortis orci diam, et eleifend nulla elementum in. Morbi vel aliquam est. Praesent mattis eros vel purus dapibus, et sodales sem rutrum. Nam tincidunt suscipit velit, sed tincidunt dui iaculis nec. Etiam quis posuere mauris. Nunc posuere augue eget neque pretium, id rhoncus urna consectetur." />
+    <TextView
+        android:id="@+id/time_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="16dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_light"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/time_icon"
+        app:layout_constraintEnd_toStartOf="@id/location_icon"
+        app:layout_constraintStart_toEndOf="@id/time_icon"
+        app:layout_constraintTop_toTopOf="@id/time_icon"
+        tools:text="1 hour ago" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    <ImageView
+        android:id="@+id/location_icon"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="4dp"
+        android:contentDescription="@string/image"
+        android:src="@drawable/ic_outline_location_on_24"
+        app:layout_constraintBottom_toBottomOf="@id/time_text_view"
+        app:layout_constraintEnd_toStartOf="@id/location_text_view"
+        app:layout_constraintTop_toTopOf="@id/time_text_view"
+        app:tint="@color/blue" />
 
-</com.google.android.material.card.MaterialCardView>
+    <TextView
+        android:id="@+id/location_text_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/poppins_light"
+        android:includeFontPadding="false"
+        android:maxLines="1"
+        android:textAlignment="textEnd"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@id/time_text_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/time_text_view"
+        tools:text="No Location" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/grey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_view" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

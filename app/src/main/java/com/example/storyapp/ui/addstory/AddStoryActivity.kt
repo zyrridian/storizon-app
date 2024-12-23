@@ -26,6 +26,7 @@ import com.example.storyapp.ui.SettingsPreferences
 import com.example.storyapp.ui.ViewModelFactory
 import com.example.storyapp.ui.addstory.CameraActivity.Companion.CAMERAX_RESULT
 import com.example.storyapp.ui.dataStore
+import com.example.storyapp.ui.stories.StoryActivity
 import com.example.storyapp.utils.showToast
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.flow.first
@@ -129,8 +130,10 @@ class AddStoryActivity : AppCompatActivity() {
 
             shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION) -> {
                 // Show an explanation to the user asynchronously
-                showToast(this,
-                    getString(R.string.location_permission_is_required_to_provide_better_service))
+                showToast(
+                    this,
+                    getString(R.string.location_permission_is_required_to_provide_better_service)
+                )
                 openAppSettings()
             }
 
@@ -172,6 +175,11 @@ class AddStoryActivity : AppCompatActivity() {
     private fun uploadStory() {
         if (!validation()) return
         currentImageUri?.let { uri ->
+
+            // Get the description text and count words
+            val description = binding.edAddDescription.text.toString()
+            val wordCount = countWords(description)
+
             viewModel.addNewStory(
                 uri = uri,
                 description = binding.edAddDescription.text.toString(),
@@ -184,13 +192,35 @@ class AddStoryActivity : AppCompatActivity() {
                     is Resource.Loading -> showLoading()
                     is Resource.Success -> {
                         hideLoading()
-                        onBackPressedDispatcher.onBackPressed()
+                        val intent = Intent(this, StoryActivity::class.java)
+                        intent.putExtra("updatedWordCount", updateTotalWordCount(wordCount))
+                        intent.flags =
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+                        startActivity(intent)
                     }
 
                     is Resource.Error -> hideLoading()
                 }
             }
         }
+    }
+
+    private fun countWords(description: String): Int {
+        // Split the description by spaces and count the non-empty words
+        return description.split("\\s+".toRegex()).filter { it.isNotEmpty() }.size
+    }
+
+    private fun updateTotalWordCount(wordCount: Int): String {
+        val sharedPreferences = getSharedPreferences("StoryAppPrefs", MODE_PRIVATE)
+        val totalWordCount = sharedPreferences.getInt("total_word_count", 0)
+
+        // Update the total word count
+        val updatedWordCount = totalWordCount + wordCount
+
+        // Save the updated total word count
+        sharedPreferences.edit().putInt("total_word_count", updatedWordCount).apply()
+
+        return updatedWordCount.toString()
     }
 
     private fun showImage() {
@@ -250,5 +280,6 @@ class AddStoryActivity : AppCompatActivity() {
         intent.data = Uri.fromParts("package", packageName, null)
         startActivity(intent)
     }
+
 
 }

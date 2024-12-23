@@ -11,7 +11,6 @@ import android.os.Build
 import android.widget.RemoteViews
 import com.example.storyapp.R
 import com.example.storyapp.data.remote.response.story.StoryResponseItem
-//import com.example.storyapp.data.local.entity.StoryEntity
 import com.example.storyapp.ui.stories.StoryDetailActivity
 import com.example.storyapp.ui.stories.StoryDetailActivity.Companion.EXTRA_STORY
 

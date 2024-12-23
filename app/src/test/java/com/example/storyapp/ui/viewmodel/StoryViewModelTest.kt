@@ -43,9 +43,6 @@ class StoryViewModelTest {
     @Mock
     private lateinit var storyRepository: StoryRepository
 
-//    @Mock
-//    private lateinit var settingsPreferences: SettingsPreferences
-
     @Test
     fun `when Get Story Should Not Null and Return Data`() = runTest {
         val dummyStory = DataDummy.generateDummyStoryResponse()

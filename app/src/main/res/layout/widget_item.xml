@@ -13,6 +13,6 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/todo"
         android:scaleType="fitCenter"
-        tools:srcCompat="@drawable/ic_logo" />
+        tools:srcCompat="@drawable/ic_storizon" />
 
 </LinearLayout>

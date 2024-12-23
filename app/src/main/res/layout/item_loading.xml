@@ -10,9 +10,12 @@
         android:id="@+id/error_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:includeFontPadding="false"
+        android:textSize="14sp"
         android:layout_gravity="center"
         android:textAlignment="center"
-        android:textColor="?android:textColorPrimary"
+        android:textColor="@color/black"
         tools:text="Timeout" />
 
     <ProgressBar
@@ -24,8 +27,12 @@
 
     <Button
         android:id="@+id/retry_button"
+        android:fontFamily="@font/poppins_regular"
+        android:includeFontPadding="false"
+        android:textSize="16sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/blue"
         android:layout_gravity="center"
         android:text="@string/retry" />
 

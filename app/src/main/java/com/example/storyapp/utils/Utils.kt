@@ -4,16 +4,22 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.location.Location
 import android.net.Uri
 import android.widget.Toast
 import androidx.exifinterface.media.ExifInterface
+import com.example.storyapp.R
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
+import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
+import java.util.TimeZone
+import java.util.concurrent.TimeUnit
 
 private const val MAXIMUM_SIZE = 1000000
 private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
@@ -75,4 +81,59 @@ fun rotateImage(source: Bitmap, angle: Float): Bitmap {
 
 fun showToast(context: Context, message: String) {
     Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+}
+
+fun formatTimeAgo(timestamp: String): String {
+    val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+    dateFormat.timeZone = TimeZone.getTimeZone("UTC")
+    val date = dateFormat.parse(timestamp)
+    val now = Date()
+
+    val diffInMillis = now.time - (date?.time ?: 0)
+    val minutes = TimeUnit.MILLISECONDS.toMinutes(diffInMillis)
+    val hours = TimeUnit.MILLISECONDS.toHours(diffInMillis)
+    val days = TimeUnit.MILLISECONDS.toDays(diffInMillis)
+
+    return when {
+        minutes < 1 -> "Just now"
+        minutes < 60 -> "$minutes minute${if (minutes > 1) "s" else ""} ago"
+        hours < 24 -> "$hours hour${if (hours > 1) "s" else ""} ago"
+        days < 7 -> "$days day${if (days > 1) "s" else ""} ago"
+        else -> SimpleDateFormat("dd MMM yyyy", Locale.getDefault()).format(date ?: now)
+    }
+}
+
+fun getErrorMessage(e: Exception): String {
+    return when (e) {
+        is UnknownHostException -> "No internet connection. Please check your network."
+        is SocketTimeoutException -> "The request timed out. Please try again."
+        else -> e.message ?: "An unexpected error occurred."
+    }
+}
+
+// Function to calculate distance between two locations in meters
+fun calculateDistance(
+    userLat: Double,
+    userLon: Double,
+    targetLat: Double,
+    targetLon: Double
+): Float {
+    val userLocation = Location("").apply {
+        latitude = userLat
+        longitude = userLon
+    }
+    val targetLocation = Location("").apply {
+        latitude = targetLat
+        longitude = targetLon
+    }
+    return userLocation.distanceTo(targetLocation) // Distance in meters
+}
+
+// Function to format distance text
+fun formatDistanceText(distance: Float): String {
+    return when {
+        distance < 200 -> "< 200 meters"
+        distance < 1000 -> "${distance.toInt()} meters away"
+        else -> String.format("%.1f km away", distance / 1000) // Convert to kilometers
+    }
 }

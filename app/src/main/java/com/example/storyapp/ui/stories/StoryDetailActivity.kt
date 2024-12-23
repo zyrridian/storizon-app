@@ -8,7 +8,6 @@ import androidx.core.view.WindowInsetsCompat
 import com.bumptech.glide.Glide
 import com.example.storyapp.R
 import com.example.storyapp.data.remote.response.story.StoryResponseItem
-//import com.example.storyapp.data.local.entity.StoryEntity
 import com.example.storyapp.databinding.ActivityDetailBinding
 import java.text.SimpleDateFormat
 import java.util.Locale
