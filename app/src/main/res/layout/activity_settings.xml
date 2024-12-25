@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="none"
+    android:background="@color/white"
     tools:context=".ui.settings.SettingsActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,15 +32,18 @@
                 android:contentDescription="@string/content_description_back_button"
                 android:focusable="true"
                 android:padding="4dp"
-                android:src="@drawable/ic_back" />
+                android:src="@drawable/ic_back"
+                app:tint="@color/black" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
+                android:fontFamily="@font/poppins_semibold"
+                android:includeFontPadding="false"
                 android:text="@string/settings"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+                android:textColor="@color/black"
+                android:textSize="20sp" />
 
         </RelativeLayout>
 
@@ -49,19 +53,22 @@
             android:layout_height="0dp"
             android:layout_marginTop="24dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_person"
+            android:src="@drawable/ic_baseline_account_circle_100"
             app:layout_constraintDimensionRatio="1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/app_bar" />
+            app:layout_constraintTop_toBottomOf="@id/app_bar"
+            app:tint="@color/black" />
 
         <TextView
             android:id="@+id/name_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:fontFamily="@font/poppins_medium"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
             android:textSize="18sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/profile_image_view"
@@ -72,158 +79,176 @@
             android:id="@+id/email_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:includeFontPadding="false"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/name_text_view"
             tools:text="mibnu@gmail.com" />
 
-        <LinearLayout
-            android:id="@+id/linear1"
+        <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:id="@+id/linear1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:cardBackgroundColor="@color/white"
+            app:strokeColor="@color/grey"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="32dp"
-            android:background="@drawable/bg_settings"
-            android:orientation="vertical"
-            android:paddingVertical="8dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:cardCornerRadius="20dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/email_text_view">
+            app:layout_constraintTop_toBottomOf="@id/email_text_view"
+            android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:id="@+id/dark_mode_layout"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp">
+                android:orientation="vertical"
+                android:paddingVertical="8dp">
 
-                <ImageView
-                    android:id="@+id/dark_mode_image_view"
-                    android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:id="@+id/dark_mode_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@string/content_description_dark_mode_icon"
-                    android:src="@drawable/ic_dark" />
+                    android:paddingHorizontal="20dp">
 
-                <TextView
-                    android:id="@+id/dark_mode_text_view"
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/dark_mode_image_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/content_description_dark_mode_icon"
+                        android:src="@drawable/ic_dark"
+                        app:tint="@color/black" />
+
+                    <TextView
+                        android:id="@+id/dark_mode_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_toEndOf="@id/dark_mode_image_view"
+                        android:fontFamily="@font/poppins_regular"
+                        android:includeFontPadding="false"
+                        android:text="@string/dark_mode"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:ignore="RelativeOverlap" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/dark_mode_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true" />
+
+                </RelativeLayout>
+
+                <!-- will be implemented in 2nd submission-->
+                <RelativeLayout
+                    android:id="@+id/notifications_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_toEndOf="@id/dark_mode_image_view"
-                    android:text="@string/dark_mode"
-                    android:textSize="16sp"
-                    tools:ignore="RelativeOverlap" />
+                    android:paddingHorizontal="20dp"
+                    android:visibility="gone">
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/dark_mode_switch"
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/notifications_image_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/content_description_notifications_icon"
+                        android:src="@drawable/ic_notifications" />
+
+                    <TextView
+                        android:id="@+id/notificationse_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_toEndOf="@id/notifications_image_view"
+                        android:text="@string/notifications"
+                        android:textSize="16sp"
+                        tools:ignore="RelativeOverlap" />
+
+                    <com.google.android.material.switchmaterial.SwitchMaterial
+                        android:id="@+id/notifications_switch"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/language_layout"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true" />
+                    android:paddingHorizontal="20dp">
 
-            </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/language_image_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:contentDescription="@string/content_description_language_icon"
+                        android:src="@drawable/ic_language"
+                        app:tint="@color/black" />
 
-            <!-- will be implemented in 2nd submission-->
-            <RelativeLayout
-                android:id="@+id/notifications_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
-                android:visibility="gone">
+                    <TextView
+                        android:id="@+id/language_text_view"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_toEndOf="@id/language_image_view"
+                        android:fontFamily="@font/poppins_regular"
+                        android:includeFontPadding="false"
+                        android:text="@string/language"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        tools:ignore="RelativeOverlap" />
 
-                <ImageView
-                    android:id="@+id/notifications_image_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@string/content_description_notifications_icon"
-                    android:src="@drawable/ic_notifications" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="4dp"
+                        android:contentDescription="@string/content_description_language_button"
+                        android:paddingVertical="12dp"
+                        android:src="@drawable/ic_arrow_forward"
+                        app:tint="@color/black" />
 
-                <TextView
-                    android:id="@+id/notificationse_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_toEndOf="@id/notifications_image_view"
-                    android:text="@string/notifications"
-                    android:textSize="16sp"
-                    tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
 
-                <com.google.android.material.switchmaterial.SwitchMaterial
-                    android:id="@+id/notifications_switch"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true" />
+            </LinearLayout>
 
-            </RelativeLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-            <RelativeLayout
-                android:id="@+id/language_layout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
-                android:paddingHorizontal="20dp">
-
-                <ImageView
-                    android:id="@+id/language_image_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:contentDescription="@string/content_description_language_icon"
-                    android:src="@drawable/ic_language" />
-
-                <TextView
-                    android:id="@+id/language_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="16dp"
-                    android:layout_toEndOf="@id/language_image_view"
-                    android:text="@string/language"
-                    android:textSize="16sp"
-                    tools:ignore="RelativeOverlap" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginEnd="4dp"
-                    android:contentDescription="@string/content_description_language_button"
-                    android:paddingVertical="12dp"
-                    android:src="@drawable/ic_arrow_forward" />
-
-            </RelativeLayout>
-
-        </LinearLayout>
-
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/linear2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            android:background="@drawable/bg_settings"
+            android:clickable="true"
+            android:focusable="true"
             android:orientation="vertical"
             android:paddingVertical="8dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="20dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/linear1">
+            app:layout_constraintTop_toBottomOf="@id/linear1"
+            app:strokeColor="@android:color/holo_red_dark">
 
             <RelativeLayout
                 android:id="@+id/logout_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:clickable="true"
-                android:focusable="true"
                 android:paddingHorizontal="20dp"
-                android:paddingVertical="12dp">
+                android:paddingVertical="16dp">
 
                 <ImageView
                     android:id="@+id/logout_image_view"
@@ -241,13 +266,15 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="16dp"
                     android:layout_toEndOf="@id/logout_image_view"
+                    android:fontFamily="@font/poppins_regular"
+                    android:includeFontPadding="false"
                     android:text="@string/logout"
                     android:textColor="@android:color/holo_red_dark"
                     android:textSize="16sp" />
 
             </RelativeLayout>
 
-        </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

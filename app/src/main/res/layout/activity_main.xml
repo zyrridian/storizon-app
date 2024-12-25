@@ -5,8 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.stories.StoryActivity"
-    tools:openDrawer="end">
+    android:background="@color/white"
+    tools:context=".ui.stories.StoryActivity">
 
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipe_refresh"
@@ -99,7 +99,8 @@
                         android:padding="4dp"
                         android:src="@drawable/ic_outline_settings_24"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="@id/welcome" />
+                        app:layout_constraintTop_toTopOf="@id/welcome"
+                        app:tint="@color/black" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -141,7 +142,7 @@
                                 android:contentDescription="@string/image"
                                 android:padding="12dp"
                                 android:src="@drawable/ic_outline_text_format_24"
-                                app:tint="@color/white" />
+                                app:tint="#FFFFFF" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -163,12 +164,12 @@
                                 android:layout_marginTop="3dp"
                                 android:fontFamily="@font/poppins_semibold"
                                 android:includeFontPadding="false"
-                                tools:text="975"
                                 android:textColor="@color/black"
                                 android:textSize="40sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="@id/welcome"
-                                app:layout_constraintTop_toBottomOf="@id/welcome" />
+                                app:layout_constraintTop_toBottomOf="@id/welcome"
+                                tools:text="975" />
 
                         </LinearLayout>
 
@@ -200,7 +201,7 @@
                                 android:contentDescription="@string/image"
                                 android:padding="12dp"
                                 android:src="@drawable/ic_outline_calendar_month_24"
-                                app:tint="@color/white" />
+                                app:tint="#FFFFFF" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -222,12 +223,12 @@
                                 android:layout_marginTop="3dp"
                                 android:fontFamily="@font/poppins_semibold"
                                 android:includeFontPadding="false"
-                                tools:text="13"
                                 android:textColor="@color/black"
                                 android:textSize="40sp"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="@id/welcome"
-                                app:layout_constraintTop_toBottomOf="@id/welcome" />
+                                app:layout_constraintTop_toBottomOf="@id/welcome"
+                                tools:text="13" />
 
                         </LinearLayout>
 
@@ -307,7 +308,7 @@
                                 android:paddingHorizontal="12dp"
                                 android:paddingVertical="4dp"
                                 android:text="@string/view_map"
-                                android:textColor="@color/white"
+                                android:textColor="#FFFFFF"
                                 android:textSize="12sp" />
 
                         </com.google.android.material.card.MaterialCardView>
@@ -359,8 +360,10 @@
                     android:padding="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/story_title"
+                    app:layout_constraintVertical_bias="0.0"
                     tools:listitem="@layout/item_data_story" />
 
                 <ProgressBar
@@ -390,6 +393,6 @@
         app:elevation="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/white" />
+        app:tint="#FFFFFF" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

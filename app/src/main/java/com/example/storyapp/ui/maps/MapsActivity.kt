@@ -63,6 +63,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         lifecycleScope.launch {
             token = "Bearer ${SettingsPreferences.getInstance(dataStore).getTokenSession().first()}"
+            token?.let { viewModel.fetchStoriesWithLocation(it) }
         }
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.maps) as SupportMapFragment
@@ -75,7 +76,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         super.onResume()
         token?.let { viewModel.fetchStoriesWithLocation(it) }
     }
-
 
     override fun onMapReady(p0: GoogleMap) {
 

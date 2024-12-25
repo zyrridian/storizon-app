@@ -56,6 +56,7 @@ class StoryListActivity : AppCompatActivity() {
         observeStories()
         fetchTokenAndStories()
 
+        binding.backButton.setOnClickListener { finish() }
         binding.fab.setOnClickListener { startActivity(Intent(this, AddStoryActivity::class.java)) }
 
     }
