@@ -28,9 +28,10 @@
     <string name="register_title">Join Us Today!</string>
     <string name="register_subtitle">Create an account to start your adventure</string>
 
-    <string name="hint_name_edit_text">Enter your name</string>
-    <string name="hint_email_edit_text">Enter your email</string>
-    <string name="hint_password_edit_text">Enter your password</string>
+    <string name="hint_full_name_edit_text">Full Name</string>
+    <string name="hint_email_edit_text">Email</string>
+    <string name="hint_password_edit_text">Password</string>
+    <string name="hint_confirm_password_edit_text">Confirm Password</string>
     <string name="hint_story_edit_text">Write your story…</string>
 
     <string name="content_description_back_button">Go back to the previous screen</string>

@@ -28,9 +28,10 @@
     <string name="register_title">Bergabunglah Hari Ini!</string>
     <string name="register_subtitle">Buat akun untuk memulai petualanganmu</string>
 
-    <string name="hint_name_edit_text">Masukkan nama Anda</string>
-    <string name="hint_email_edit_text">Masukkan email Anda</string>
-    <string name="hint_password_edit_text">Masukkan kata sandi Anda</string>
+    <string name="hint_name_edit_text">Nama Lengkap</string>
+    <string name="hint_email_edit_text">Email</string>
+    <string name="hint_password_edit_text">Kata Sandi</string>
+    <string name="hint_confirm_password_edit_text">Konfirmasi Kata Sandi</string>
     <string name="hint_story_edit_text">Tulis cerita Anda…</string>
 
     <string name="content_description_back_button">Kembali ke layar sebelumnya</string>

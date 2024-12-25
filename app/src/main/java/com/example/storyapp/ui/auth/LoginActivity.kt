@@ -21,7 +21,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.example.storyapp.R
 import com.example.storyapp.utils.Resource
-import com.example.storyapp.databinding.ActivityLoginBinding
+import com.example.storyapp.databinding.ActivityAuthLoginBinding
 import com.example.storyapp.ui.SettingsPreferences
 import com.example.storyapp.ui.dataStore
 import com.example.storyapp.ui.stories.StoryActivity
@@ -34,7 +34,7 @@ import java.util.Locale
 @Suppress("DEPRECATION")
 class LoginActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityLoginBinding
+    private lateinit var binding: ActivityAuthLoginBinding
     private val viewModel: AuthViewModel by viewModels {
         ViewModelFactory.getInstance(this@LoginActivity)
     }
@@ -72,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun setupUI() {
         enableEdgeToEdge()
-        binding = ActivityLoginBinding.inflate(layoutInflater)
+        binding = ActivityAuthLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         applyWindowInsets()
         playAnimation()
@@ -119,9 +119,9 @@ class LoginActivity : AppCompatActivity() {
                 },
                 AnimatorSet().apply {
                     playTogether(
-                        ObjectAnimator.ofFloat(binding.edLoginEmail, View.ALPHA, 1f)
+                        ObjectAnimator.ofFloat(binding.emailTextInputLayout, View.ALPHA, 1f)
                             .setDuration(200),
-                        ObjectAnimator.ofFloat(binding.edLoginPassword, View.ALPHA, 1f)
+                        ObjectAnimator.ofFloat(binding.passwordTextInputLayout, View.ALPHA, 1f)
                             .setDuration(200)
                     )
                 },
@@ -129,7 +129,7 @@ class LoginActivity : AppCompatActivity() {
                     playTogether(
                         ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f)
                             .setDuration(200),
-                        ObjectAnimator.ofFloat(binding.registerButton, View.ALPHA, 1f)
+                        ObjectAnimator.ofFloat(binding.registerLayout, View.ALPHA, 1f)
                             .setDuration(200)
                     )
                 }
@@ -141,8 +141,8 @@ class LoginActivity : AppCompatActivity() {
     private fun setupButtonListeners() {
         binding.apply {
             loginButton.setOnClickListener {
-                val email = edLoginEmail.text.toString()
-                val password = edLoginPassword.text.toString()
+                val email = emailEditText.text.toString()
+                val password = passwordEditText.text.toString()
                 validateCredentials(email, password)
             }
             registerButton.setOnClickListener {
@@ -156,19 +156,19 @@ class LoginActivity : AppCompatActivity() {
         var isValid = true
 
         if (email.isEmpty()) {
-            binding.edLoginEmail.error = getString(R.string.error_empty_email)
+            binding.emailEditText.error = getString(R.string.error_empty_email)
             isValid = false
         }
         if (password.isEmpty()) {
-            binding.edLoginPassword.error = getString(R.string.error_empty_password)
+            binding.passwordEditText.error = getString(R.string.error_empty_password)
             isValid = false
         }
         if (isValid && !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            binding.edLoginEmail.error = getString(R.string.error_invalid_email)
+            binding.emailEditText.error = getString(R.string.error_invalid_email)
             isValid = false
         }
         if (isValid && password.length < 8) {
-            binding.edLoginPassword.error = getString(R.string.error_short_password)
+            binding.passwordEditText.error = getString(R.string.error_short_password)
             isValid = false
         }
         if (isValid) login(

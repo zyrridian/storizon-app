@@ -13,13 +13,13 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.storyapp.R
 import com.example.storyapp.utils.Resource
-import com.example.storyapp.databinding.ActivityRegisterBinding
+import com.example.storyapp.databinding.ActivityAuthRegisterBinding
 import com.example.storyapp.ui.ViewModelFactory
 import com.example.storyapp.utils.showToast
 
 class RegisterActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityRegisterBinding
+    private lateinit var binding: ActivityAuthRegisterBinding
     private val viewModel: AuthViewModel by viewModels {
         ViewModelFactory.getInstance(this@RegisterActivity)
     }
@@ -27,7 +27,7 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        binding = ActivityRegisterBinding.inflate(layoutInflater)
+        binding = ActivityAuthRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
@@ -46,11 +46,12 @@ class RegisterActivity : AppCompatActivity() {
             ObjectAnimator.ofFloat(binding.imageView, View.ALPHA, 1f).setDuration(200),
             ObjectAnimator.ofFloat(binding.headerTextView, View.ALPHA, 1f).setDuration(200),
             ObjectAnimator.ofFloat(binding.subHeaderTextView, View.ALPHA, 1f).setDuration(200),
-            ObjectAnimator.ofFloat(binding.edRegisterName, View.ALPHA, 1f).setDuration(200),
-            ObjectAnimator.ofFloat(binding.edRegisterEmail, View.ALPHA, 1f).setDuration(200),
-            ObjectAnimator.ofFloat(binding.edRegisterPassword, View.ALPHA, 1f).setDuration(200),
+            ObjectAnimator.ofFloat(binding.nameTextInputLayout, View.ALPHA, 1f).setDuration(200),
+            ObjectAnimator.ofFloat(binding.emailTextInputLayout, View.ALPHA, 1f).setDuration(200),
+            ObjectAnimator.ofFloat(binding.passwordTextInputLayout, View.ALPHA, 1f).setDuration(200),
+            ObjectAnimator.ofFloat(binding.confirmPasswordTextInputLayout, View.ALPHA, 1f).setDuration(200),
             ObjectAnimator.ofFloat(binding.registerButton, View.ALPHA, 1f).setDuration(200),
-            ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(200)
+            ObjectAnimator.ofFloat(binding.loginLayout, View.ALPHA, 1f).setDuration(200)
         )
 
         AnimatorSet().apply {
@@ -62,10 +63,11 @@ class RegisterActivity : AppCompatActivity() {
     private fun setupButtonListeners() {
         binding.apply {
             registerButton.setOnClickListener {
-                val name = edRegisterName.text.toString()
-                val email = edRegisterEmail.text.toString()
-                val password = edRegisterPassword.text.toString()
-                validateInputs(name, email, password)
+                val name = nameEditText.text.toString()
+                val email = emailEditText.text.toString()
+                val password = passwordEditText.text.toString()
+                val confirmPassword = confirmPasswordEditText.text.toString()
+                validateInputs(name, email, password, confirmPassword)
             }
             loginButton.setOnClickListener {
                 val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
@@ -75,29 +77,37 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun validateInputs(name: String, email: String, password: String) {
+    private fun validateInputs(name: String, email: String, password: String, confirmPassword: String) {
         var isValid = true
 
         if (name.isEmpty()) {
-            binding.edRegisterName.error = getString(R.string.error_empty_name)
+            binding.nameEditText.error = getString(R.string.error_empty_name)
             isValid = false
         }
         if (email.isEmpty()) {
-            binding.edRegisterEmail.error = getString(R.string.error_empty_email)
+            binding.emailEditText.error = getString(R.string.error_empty_email)
             isValid = false
         }
         if (password.isEmpty()) {
-            binding.edRegisterPassword.error = getString(R.string.error_empty_password)
+            binding.passwordEditText.error = getString(R.string.error_empty_password)
+            isValid = false
+        }
+        if (confirmPassword.isEmpty()) {
+            binding.confirmPasswordEditText.error = getString(R.string.error_empty_password)
             isValid = false
         }
 
         if (isValid) {
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-                binding.edRegisterEmail.error = getString(R.string.error_invalid_email)
+                binding.emailEditText.error = getString(R.string.error_invalid_email)
                 isValid = false
             }
             if (password.length < 8) {
-                binding.edRegisterPassword.error = getString(R.string.hint_password_edit_text)
+                binding.passwordEditText.error = getString(R.string.error_short_password)
+                isValid = false
+            }
+            if (password != confirmPassword) {
+                binding.confirmPasswordEditText.error = getString(R.string.error_password_not_match)
                 isValid = false
             }
         }
